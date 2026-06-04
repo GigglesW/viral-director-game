@@ -1,0 +1,3603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>刮出爆款导演 - Scratch Your Way to a Viral AI Film</title>
+  <style>
+    :root {
+      --bg: #10151f;
+      --panel: rgba(255, 255, 255, 0.1);
+      --panel-strong: rgba(255, 255, 255, 0.16);
+      --line: rgba(255, 255, 255, 0.2);
+      --text: #f8fbff;
+      --muted: #b9c4d6;
+      --accent: #42e8bf;
+      --accent-2: #ffce54;
+      --accent-3: #ff6b87;
+      --blue: #73a7ff;
+      --purple: #bc89ff;
+      --gold: #ffd45c;
+      --danger: #ff7676;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 15% 15%, rgba(66, 232, 191, 0.24), transparent 30%),
+        radial-gradient(circle at 85% 10%, rgba(255, 107, 135, 0.22), transparent 28%),
+        linear-gradient(135deg, #111827 0%, #162033 45%, #271b36 100%);
+      overflow-x: hidden;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .app {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 40px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand strong {
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .screen {
+      animation: fadeUp 0.42s ease both;
+    }
+
+    .hero {
+      min-height: calc(100vh - 120px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      margin: 0;
+      font-size: clamp(46px, 7vw, 92px);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 16px 0 18px;
+      color: #dfe8ff;
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 700;
+    }
+
+    .intro {
+      max-width: 660px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 8px;
+      padding: 12px 18px;
+      color: #091017;
+      background: linear-gradient(135deg, var(--accent), #89f7d1);
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(66, 232, 191, 0.25);
+      transition: transform 0.18s ease, filter 0.18s ease, opacity 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.04);
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      box-shadow: none;
+      border: 1px solid var(--line);
+    }
+
+    .btn.warn {
+      background: linear-gradient(135deg, var(--accent-2), #ffed9b);
+      box-shadow: 0 12px 28px rgba(255, 206, 84, 0.22);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      transform: none;
+      filter: none;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.08));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .phone {
+      min-height: 560px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .phone-screen {
+      position: relative;
+      min-height: 420px;
+      border-radius: 8px;
+      overflow: hidden;
+      background:
+        linear-gradient(160deg, rgba(66, 232, 191, 0.18), rgba(255, 107, 135, 0.18)),
+        #101620;
+      display: grid;
+      place-items: center;
+    }
+
+    .fake-video-art {
+      width: 86%;
+      aspect-ratio: 9 / 14;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1b2840, #2d1f38 45%, #21372f);
+    }
+
+    .floating-shape {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      background: rgba(66, 232, 191, 0.26);
+      animation: drift 5s ease-in-out infinite;
+    }
+
+    .floating-shape:nth-child(2) {
+      width: 88px;
+      height: 34px;
+      left: 12%;
+      top: 18%;
+      background: rgba(255, 206, 84, 0.3);
+      animation-delay: -1.6s;
+    }
+
+    .floating-shape:nth-child(3) {
+      right: 16%;
+      bottom: 18%;
+      background: rgba(255, 107, 135, 0.28);
+      animation-delay: -2.8s;
+    }
+
+    .video-title {
+      position: relative;
+      z-index: 1;
+      width: 78%;
+      text-align: center;
+      font-weight: 900;
+      font-size: 22px;
+      line-height: 1.4;
+    }
+
+    .danmu {
+      position: absolute;
+      left: 100%;
+      white-space: nowrap;
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      animation: danmu 8s linear infinite;
+    }
+
+    .danmu:nth-of-type(1) { top: 18%; animation-delay: 0s; }
+    .danmu:nth-of-type(2) { top: 34%; animation-delay: -2s; }
+    .danmu:nth-of-type(3) { top: 52%; animation-delay: -4s; }
+    .danmu:nth-of-type(4) { top: 70%; animation-delay: -6s; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .stat {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .stat strong {
+      font-size: clamp(18px, 2.4vw, 28px);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .wide-card {
+      padding: clamp(18px, 3vw, 32px);
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: clamp(26px, 4vw, 44px);
+      letter-spacing: 0;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0 0 20px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid.three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .choice-card,
+    .shop-card,
+    .judge-card,
+    .story-card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.09);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .choice-card:hover,
+    .shop-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(66, 232, 191, 0.56);
+      background: rgba(255, 255, 255, 0.13);
+    }
+
+    .choice-card h3,
+    .shop-card h3,
+    .judge-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .choice-card {
+      border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 36%, rgba(255, 255, 255, 0.2));
+    }
+
+    .choice-card h4 {
+      margin: 14px 0 8px;
+      font-size: 14px;
+      color: #eef6ff;
+    }
+
+    .archetype {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 5px 9px;
+      border-radius: 8px;
+      color: #081018;
+      background: var(--card-accent, var(--accent));
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .inspiration-effects,
+    .stat-effects {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .effect-row {
+      padding: 7px 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .tradeoff-box,
+    .recommend-box,
+    .strategy-note {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .strategy-note {
+      border-color: rgba(66, 232, 191, 0.26);
+      background: rgba(66, 232, 191, 0.08);
+    }
+
+    .tradeoff-box p,
+    .recommend-box p,
+    .strategy-note p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .tag,
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 28px;
+      padding: 5px 9px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 13px;
+      color: #eef6ff;
+    }
+
+    .scratch-wrap {
+      display: grid;
+      grid-template-columns: minmax(320px, 620px) minmax(280px, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .deck-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+      perspective: 1000px;
+    }
+
+    .deck-card {
+      min-height: 160px;
+      border: 0;
+      border-radius: 8px;
+      padding: 0;
+      color: var(--text);
+      background: transparent;
+      cursor: pointer;
+      transform: translateY(16px) rotate(var(--rot));
+      opacity: 0;
+      animation: dealIn 0.44s ease forwards;
+      animation-delay: var(--delay);
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .deck-card:hover {
+      transform: translateY(-8px) rotate(0deg) scale(1.03);
+      filter: brightness(1.08);
+      z-index: 2;
+    }
+
+    .deck-card.selected {
+      animation: selectedLift 0.34s ease forwards;
+      z-index: 4;
+    }
+
+    .deck-card-inner {
+      height: 100%;
+      min-height: 160px;
+      border-radius: 8px;
+      transform-style: preserve-3d;
+    }
+
+    .deck-card-back {
+      height: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 16px;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.2), transparent 28%),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 8px, rgba(255, 255, 255, 0.02) 8px 16px),
+        linear-gradient(135deg, #253246, #192131 55%, #2b2439);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.24);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .deck-card-back::after {
+      content: "";
+      position: absolute;
+    }
+
+    .deck-pattern {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: var(--accent-2);
+      border: 1px solid rgba(255, 206, 84, 0.32);
+      background: rgba(255, 206, 84, 0.1);
+      animation: cardFloat 2.8s ease-in-out infinite;
+    }
+
+    .deck-card strong {
+      font-size: 18px;
+    }
+
+    .deck-card small {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .deck-card.used-card {
+      cursor: not-allowed;
+      opacity: 0.68;
+      filter: grayscale(0.8);
+      animation: fadeUp 0.32s ease both;
+      transform: none;
+    }
+
+    .deck-card.used-card:hover {
+      transform: none;
+      filter: grayscale(0.8);
+    }
+
+    .used-card .deck-card-back {
+      background:
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0 8px, rgba(255, 255, 255, 0.01) 8px 16px),
+        linear-gradient(135deg, #3b414c, #252b34);
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: none;
+    }
+
+    .used-card .used-label {
+      display: inline-flex;
+      width: fit-content;
+      padding: 4px 8px;
+      border-radius: 8px;
+      color: #d8dee9;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .used-card .used-day {
+      color: #c2c9d6;
+    }
+
+    .single-scratch {
+      min-height: 320px;
+      max-width: 520px;
+      margin: 18px auto 0;
+    }
+
+    .single-scratch .keyword-layer {
+      display: block;
+    }
+
+    .single-scratch .keyword-slot {
+      height: 100%;
+      min-height: 284px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .single-scratch .keyword-slot strong {
+      font-size: clamp(24px, 4vw, 38px);
+    }
+
+    .prompt-panel {
+      display: grid;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .prompt-row {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .prompt-row b {
+      color: var(--accent);
+    }
+
+    .confirm-note {
+      margin: 12px 0 0;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(66, 232, 191, 0.28);
+      background: rgba(66, 232, 191, 0.11);
+      color: #d9fff3;
+      animation: fadeUp 0.32s ease both;
+    }
+
+    .opportunity-panel,
+    .shop-advice {
+      margin: 16px 0;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 206, 84, 0.28);
+      background: rgba(255, 206, 84, 0.09);
+    }
+
+    .opportunity-panel h3,
+    .shop-advice h3 {
+      margin: 0 0 8px;
+    }
+
+    .opportunity-panel p,
+    .shop-advice p {
+      margin: 6px 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .item-slot {
+      display: grid;
+      gap: 10px;
+      margin: 12px 0 16px;
+    }
+
+    .slot-item {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .slot-item-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-weight: 800;
+    }
+
+    .slot-item p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .slot-item .btn {
+      width: 100%;
+      padding: 9px 12px;
+    }
+
+    .scratch-stage {
+      position: relative;
+      min-height: 430px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: linear-gradient(135deg, #253246, #182233);
+      touch-action: none;
+    }
+
+    .keyword-layer {
+      position: absolute;
+      inset: 0;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .keyword-slot {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 118px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(8, 13, 20, 0.7);
+    }
+
+    .keyword-slot:nth-child(5) {
+      grid-column: span 2;
+      min-height: 96px;
+    }
+
+    .keyword-slot small {
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .keyword-slot strong {
+      font-size: 20px;
+      line-height: 1.35;
+    }
+
+    .rarity-common { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+    .rarity-rare { box-shadow: 0 0 22px rgba(115, 167, 255, 0.28), inset 0 0 0 1px rgba(115, 167, 255, 0.38); }
+    .rarity-epic { box-shadow: 0 0 28px rgba(188, 137, 255, 0.38), inset 0 0 0 1px rgba(188, 137, 255, 0.5); }
+    .rarity-legendary {
+      box-shadow: 0 0 36px rgba(255, 212, 92, 0.48), inset 0 0 0 1px rgba(255, 212, 92, 0.62);
+      animation: legendaryPulse 1.4s ease-in-out infinite;
+    }
+
+    #scratchCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+    }
+
+    .progress-line {
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      overflow: hidden;
+      margin: 12px 0 6px;
+    }
+
+    .progress-line i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.15s ease;
+    }
+
+    .film-title {
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.18;
+      margin: 0 0 14px;
+    }
+
+    .video-preview {
+      min-height: 360px;
+      display: grid;
+      grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .mini-player {
+      position: relative;
+      overflow: hidden;
+      min-height: 360px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background:
+        linear-gradient(135deg, rgba(66, 232, 191, 0.22), transparent),
+        linear-gradient(45deg, #151f30, #352034);
+    }
+
+    .mini-player .video-title {
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 40%;
+      width: auto;
+      transform: translateY(-50%);
+      font-size: 20px;
+    }
+
+    .ai-progress {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      z-index: 2;
+    }
+
+    .ai-progress .progress-line i {
+      animation: aiLoad 2.6s ease-in-out both;
+    }
+
+    .story-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .story-card {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+    }
+
+    .story-card b {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: rgba(66, 232, 191, 0.16);
+      color: var(--accent);
+    }
+
+    .score-big {
+      font-size: clamp(48px, 8vw, 86px);
+      line-height: 1;
+      margin: 0;
+      color: var(--accent-2);
+    }
+
+    .judge-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+      font-size: 28px;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .judge-portrait {
+      width: 78px;
+      height: 78px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .judge-card:hover .judge-portrait,
+    .guide-entry:hover .judge-portrait {
+      transform: translateY(-3px);
+    }
+
+    .judge-portrait svg {
+      width: 76px;
+      height: 76px;
+      display: block;
+    }
+
+    .judge-platform {
+      background: radial-gradient(circle at 24% 18%, rgba(66, 232, 191, 0.5), transparent 34%),
+        linear-gradient(145deg, rgba(33, 215, 255, 0.22), rgba(35, 166, 120, 0.18));
+    }
+
+    .judge-artist {
+      background: radial-gradient(circle at 72% 18%, rgba(255, 206, 84, 0.42), transparent 30%),
+        linear-gradient(145deg, rgba(143, 95, 255, 0.26), rgba(255, 206, 84, 0.14));
+    }
+
+    .judge-investor {
+      background: radial-gradient(circle at 28% 20%, rgba(255, 206, 84, 0.45), transparent 32%),
+        linear-gradient(145deg, rgba(255, 168, 54, 0.24), rgba(255, 255, 255, 0.1));
+    }
+
+    .reward-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .reward {
+      padding: 18px;
+      border-radius: 8px;
+      background: rgba(66, 232, 191, 0.12);
+      border: 1px solid rgba(66, 232, 191, 0.28);
+      animation: pop 0.44s ease both;
+    }
+
+    .reward strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 24px;
+    }
+
+    .reward small {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .shop-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .shop-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 220px;
+    }
+
+    .shop-card.disabled {
+      opacity: 0.55;
+      filter: grayscale(0.75);
+    }
+
+    .shop-card .btn {
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .final-poster {
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+      padding: clamp(22px, 5vw, 46px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-poster::before {
+      content: "";
+      position: absolute;
+      left: -20%;
+      right: -20%;
+      top: -120px;
+      height: 230px;
+      background: linear-gradient(90deg, rgba(66, 232, 191, 0.24), rgba(255, 206, 84, 0.22), rgba(255, 107, 135, 0.2));
+      transform: rotate(-5deg);
+    }
+
+    .final-poster > * {
+      position: relative;
+    }
+
+    .identity {
+      display: inline-flex;
+      margin: 12px 0 18px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: rgba(255, 206, 84, 0.18);
+      border: 1px solid rgba(255, 206, 84, 0.34);
+      color: #fff2bd;
+      font-weight: 900;
+    }
+
+    dialog {
+      width: min(720px, calc(100% - 32px));
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--text);
+      background: #172233;
+      box-shadow: var(--shadow);
+      padding: 0;
+    }
+
+    #guideModal {
+      width: min(960px, calc(100% - 32px));
+      height: min(82vh, 760px);
+      overflow: hidden;
+    }
+
+    #guideModal .modal-body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .guide-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1;
+      z-index: 4;
+    }
+
+    .guide-close:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.58);
+    }
+
+    .modal-body {
+      padding: 24px;
+      line-height: 1.8;
+    }
+
+    .guide-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 18px;
+      flex: 0 0 auto;
+      z-index: 2;
+      padding: 8px 44px 8px 0;
+      background: #172233;
+    }
+
+    .guide-tab {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .guide-tab.active {
+      color: #081018;
+      border-color: transparent;
+      background: var(--accent);
+    }
+
+    .guide-content {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 0 4px 28px 0;
+      overscroll-behavior: contain;
+    }
+
+    .guide-section {
+      margin: 0 0 18px;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .guide-card,
+    .guide-entry {
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .guide-card.focus {
+      border-color: var(--accent-2);
+      box-shadow: 0 0 28px rgba(255, 206, 84, 0.25);
+      animation: pop 0.34s ease both;
+    }
+
+    .guide-card h3,
+    .guide-entry h3 {
+      margin: 0 0 8px;
+    }
+
+    .guide-card h4 {
+      margin: 14px 0 8px;
+      color: #eef6ff;
+      font-size: 14px;
+    }
+
+    .guide-empty {
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .compact-card-note {
+      margin: 12px 0 0;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      padding: 12px 16px;
+      border-radius: 8px;
+      background: rgba(12, 18, 28, 0.94);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 20;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, -6px);
+    }
+
+    .term-highlight {
+      color: var(--accent-2);
+      border-bottom: 1px dashed rgba(255, 206, 84, 0.75);
+      cursor: help;
+      font-weight: 800;
+    }
+
+    .term-tooltip {
+      position: fixed;
+      z-index: 9999;
+      max-width: 280px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(12, 18, 28, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      font-size: 13px;
+      line-height: 1.55;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.12s ease, transform 0.12s ease;
+    }
+
+    .term-tooltip.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .score-breakdown {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+      text-align: left;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(24px, -18px) rotate(12deg); }
+    }
+
+    @keyframes danmu {
+      from { transform: translateX(0); }
+      to { transform: translateX(-150vw); }
+    }
+
+    @keyframes legendaryPulse {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+
+    @keyframes aiLoad {
+      from { width: 3%; }
+      to { width: 100%; }
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(0.94); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes dealIn {
+      from { opacity: 0; transform: translateY(28px) translateX(var(--x)) rotate(calc(var(--rot) - 10deg)); }
+      to { opacity: 1; transform: translateY(0) translateX(0) rotate(var(--rot)); }
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes selectedLift {
+      from { transform: translateY(0) rotate(var(--rot)); }
+      to { transform: translateY(-18px) rotate(0deg) scale(1.06); }
+    }
+
+    @media (max-width: 860px) {
+      .app {
+        width: min(100% - 20px, 680px);
+        padding-top: 18px;
+      }
+
+      .hero,
+      .scratch-wrap,
+      .video-preview,
+      .grid.three,
+      .grid.two,
+      .stats-grid,
+      .reward-list,
+      .guide-grid,
+      .inspiration-effects,
+      .stat-effects {
+        grid-template-columns: 1fr;
+      }
+
+      .deck-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .phone {
+        min-height: 430px;
+      }
+
+      .keyword-layer {
+        grid-template-columns: 1fr;
+      }
+
+      .keyword-slot:nth-child(5) {
+        grid-column: auto;
+      }
+
+      .scratch-stage {
+        min-height: 680px;
+      }
+
+      .single-scratch {
+        min-height: 300px;
+      }
+
+      #guideModal {
+        width: calc(100% - 16px);
+        height: min(90vh, 820px);
+      }
+
+      .guide-tabs {
+        padding-right: 42px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">
+        <strong>刮出爆款导演</strong>
+        <span>Scratch Your Way to a Viral AI Film</span>
+      </div>
+      <div class="actions" style="margin-top:0">
+        <button class="btn secondary" onclick="openGuide()">AI 创作手册</button>
+        <button class="btn secondary" onclick="openDesignModal()">设计说明</button>
+      </div>
+    </div>
+    <main id="game"></main>
+  </div>
+
+  <dialog id="designModal">
+    <div class="modal-body">
+      <h2>设计说明</h2>
+      <section class="guide-section">
+        <h3>核心玩法</h3>
+        <p>玩家扮演一名刚毕业的 AI 短片创作者，在 5 天内通过刮开 Prompt 灵感卡，组合主角、场景、冲突、风格和结局，生成一部 AI 短片，并接受三位评委评分。</p>
+      </section>
+      <section class="guide-section">
+        <h3>游戏循环</h3>
+        <p>每日机会 → 选择灵感卡 → 刮出关键词 → 生成短片 → 评委评分 → 获得资金、粉丝、影响力和口碑 → 商店购买道具或升级 → 走向最终结局。</p>
+      </section>
+      <section class="guide-section">
+        <h3>策略设计</h3>
+        <p>不同灵感卡会影响关键词稀有度和作品评分倾向；每日机会会改变奖励方向；道具和升级可以改变牌库、提高奖励或强化作品属性。玩家需要在稳定收益、高风险爆款和长期成长之间做取舍。</p>
+      </section>
+      <section class="guide-section">
+        <h3>AI 视频交互设想</h3>
+        <p>当前 HTML 原型用本地规则模拟 AI 短片标题、分镜、弹幕和评委反馈。完整版本中，玩家刮出的五类关键词可以作为 AI 视频生成模型的 prompt 输入，生成不同短片片段，实现更强的 AI 视频互动。</p>
+      </section>
+      <section class="guide-section">
+        <h3>为什么有趣</h3>
+        <p>刮卡带来不确定性，牌库消耗带来长期变化，评委反馈和终局评分让玩家能够复盘，AI 创作手册和已发现关键词增加收集感和重玩价值。</p>
+      </section>
+      <p class="section-sub">本原型重点展示玩法闭环、AI 视频生成交互潜力，以及可扩展的卡牌/评分/图鉴系统。</p>
+      <button class="btn" onclick="closeDesignModal()">明白，继续创作</button>
+    </div>
+  </dialog>
+  <dialog id="guideModal">
+    <div class="modal-body" id="guideBody"></div>
+  </dialog>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const MAX_DAYS = 5;
+    const rarityOrder = ["common", "rare", "epic", "legendary"];
+    const rarityNames = {
+      common: "普通",
+      rare: "稀有",
+      epic: "史诗",
+      legendary: "传说"
+    };
+
+    const categoryNames = {
+      character: "主角",
+      scene: "场景",
+      conflict: "冲突",
+      style: "风格",
+      ending: "结局"
+    };
+
+    const state = {
+      screen: "start",
+      day: 1,
+      funding: 300,
+      followers: 0,
+      influence: 0,
+      reputation: 0,
+      bestFilmScore: 0,
+      totalEarnedFunding: 0,
+      legendaryFound: 0,
+      ownedItems: [],
+      activeItems: {},
+      itemPurchaseCounts: createEmptyItemPurchaseCounts(),
+      dailyPurchasedItems: new Set(),
+      itemInventory: {
+        fate: 0,
+        recycleUsed: 0
+      },
+      recycleUsedUnlocked: false,
+      upgrades: {
+        home: 0,
+        equipment: 0,
+        branding: 0,
+        network: 0
+      },
+      selectedCard: null,
+      availableCards: [],
+      currentKeywords: [],
+      scratchStepIndex: 0,
+      keywordOrder: ["character", "scene", "conflict", "style", "ending"],
+      currentCategoryDeck: [],
+      selectedDeckIndex: null,
+      selectedKeywordCandidate: null,
+      currentScratchLocked: false,
+      usedKeywordTexts: new Set(),
+      usedKeywordsByCategory: createEmptyUsedKeywords(),
+      lastConfirmMessage: "",
+      deckNote: "",
+      currentDeckAllowsUsed: false,
+      dailyOpportunity: null,
+      currentFilm: null,
+      currentScores: null,
+      currentRewards: null,
+      bestFilmTitle: "还没开机的毕业作品",
+      resumeScreen: "daily"
+    };
+
+    function k(text, rarity, stats) {
+      return {
+        text,
+        rarity,
+        creativity: stats[0],
+        virality: stats[1],
+        aiFeeling: stats[2],
+        coherence: stats[3],
+        commercial: stats[4],
+        emotion: stats[5]
+      };
+    }
+
+    const keywordPools = {
+      character: {
+        common: [
+          k("刚毕业大学生", "common", [55, 48, 40, 70, 48, 62]),
+          k("熬夜剪片人", "common", [52, 54, 44, 66, 50, 58]),
+          k("新城市打工人", "common", [45, 56, 38, 72, 55, 65]),
+          k("小镇做题家导演", "common", [58, 48, 35, 68, 44, 70])
+        ],
+        rare: [
+          k("会写剧本的鹅", "rare", [72, 76, 62, 46, 52, 57]),
+          k("失业的 AI 替身", "rare", [68, 66, 82, 58, 55, 50]),
+          k("被算法选中的外卖员", "rare", [64, 75, 68, 62, 58, 64]),
+          k("住在出租屋的赛博诗人", "rare", [78, 60, 70, 52, 42, 72])
+        ],
+        epic: [
+          k("能预知爆款的机器人", "epic", [82, 82, 88, 60, 66, 52]),
+          k("被自己生成的视频追着跑的导演", "epic", [86, 86, 92, 52, 54, 58]),
+          k("拥有 100 个 AI 分身的大学生", "epic", [80, 78, 90, 56, 64, 52])
+        ],
+        legendary: [
+          k("被全网二创的 AI 鹅王", "legendary", [94, 98, 90, 48, 68, 66]),
+          k("让投资人落泪的虚拟导演", "legendary", [96, 86, 92, 72, 82, 92])
+        ]
+      },
+      scene: {
+        common: [
+          k("10 平米出租屋", "common", [48, 52, 35, 72, 45, 70]),
+          k("地铁末班车", "common", [52, 58, 42, 68, 50, 62]),
+          k("公司茶水间", "common", [44, 50, 32, 74, 58, 46]),
+          k("雨夜天桥", "common", [60, 54, 38, 65, 40, 72])
+        ],
+        rare: [
+          k("赛博江南水乡", "rare", [78, 72, 82, 58, 54, 70]),
+          k("废弃影视城", "rare", [70, 62, 66, 66, 52, 58]),
+          k("24 小时便利店宇宙", "rare", [68, 74, 78, 56, 60, 62]),
+          k("无人直播间", "rare", [62, 76, 76, 62, 64, 48])
+        ],
+        epic: [
+          k("AI 生成失败的平行城市", "epic", [86, 82, 94, 50, 54, 58]),
+          k("被弹幕控制的电影片场", "epic", [82, 88, 88, 54, 62, 56]),
+          k("只存在 3 秒的梦境街区", "epic", [92, 74, 90, 46, 42, 80])
+        ],
+        legendary: [
+          k("算法尽头的江南片场", "legendary", [98, 88, 96, 72, 70, 86]),
+          k("全球观众同时刷到的虚拟城市", "legendary", [90, 100, 94, 64, 84, 66])
+        ]
+      },
+      conflict: {
+        common: [
+          k("房租快到期", "common", [42, 55, 30, 78, 50, 66]),
+          k("甲方突然改需求", "common", [46, 66, 35, 68, 68, 44]),
+          k("投资人看不懂剧本", "common", [50, 54, 34, 70, 62, 42]),
+          k("主角忘记保存工程文件", "common", [48, 64, 45, 58, 44, 48])
+        ],
+        rare: [
+          k("AI 把男主生成成一只鹅", "rare", [72, 84, 78, 42, 54, 50]),
+          k("爆款视频被同学误发", "rare", [60, 80, 58, 62, 66, 55]),
+          k("评委只看前三秒", "rare", [56, 72, 46, 68, 72, 42]),
+          k("全城都在模仿主角", "rare", [68, 82, 70, 56, 64, 62])
+        ],
+        epic: [
+          k("AI 生成了另一个更成功的自己", "epic", [86, 84, 94, 58, 62, 70]),
+          k("短片还没拍完就被观众二创", "epic", [80, 92, 82, 52, 70, 56]),
+          k("主角被自己的 prompt 反向控制", "epic", [90, 82, 96, 44, 48, 58])
+        ],
+        legendary: [
+          k("整个城市变成一条短视频时间线", "legendary", [96, 98, 94, 54, 72, 72]),
+          k("观众的弹幕开始改变现实", "legendary", [100, 94, 98, 50, 60, 82])
+        ]
+      },
+      style: {
+        common: [
+          k("校园励志", "common", [46, 48, 30, 78, 54, 72]),
+          k("都市喜剧", "common", [52, 62, 35, 70, 62, 58]),
+          k("轻悬疑", "common", [58, 60, 42, 66, 55, 52]),
+          k("温暖治愈", "common", [54, 50, 32, 74, 48, 82])
+        ],
+        rare: [
+          k("赛博国风", "rare", [78, 76, 84, 58, 62, 62]),
+          k("土味爽文", "rare", [56, 86, 48, 52, 74, 44]),
+          k("伪纪录片", "rare", [72, 62, 58, 76, 52, 68]),
+          k("高燃创业片", "rare", [64, 72, 54, 70, 76, 58])
+        ],
+        epic: [
+          k("抽象意识流", "epic", [94, 70, 86, 38, 38, 72]),
+          k("弹幕互动电影", "epic", [82, 90, 90, 58, 68, 58]),
+          k("AI 错误美学", "epic", [92, 82, 96, 42, 46, 62]),
+          k("梦核短剧", "epic", [88, 78, 88, 50, 48, 78])
+        ],
+        legendary: [
+          k("赛博江南史诗", "legendary", [100, 86, 96, 70, 66, 90]),
+          k("全网可二创宇宙", "legendary", [90, 100, 92, 62, 88, 68])
+        ]
+      },
+      ending: {
+        common: [
+          k("获得小范围好评", "common", [42, 50, 32, 78, 52, 58]),
+          k("被朋友转发", "common", [44, 58, 34, 72, 48, 62]),
+          k("拿到第一笔商单", "common", [46, 56, 34, 68, 78, 45]),
+          k("评委觉得有潜力", "common", [52, 48, 38, 70, 58, 52])
+        ],
+        rare: [
+          k("登上同城热榜", "rare", [58, 82, 56, 64, 70, 56]),
+          k("被投资人约饭", "rare", [54, 70, 52, 66, 86, 48]),
+          k("评论区开始玩梗", "rare", [66, 88, 62, 58, 60, 52]),
+          k("粉丝催更第二集", "rare", [60, 80, 54, 70, 68, 66])
+        ],
+        epic: [
+          k("全网模仿同款分镜", "epic", [78, 94, 76, 62, 78, 58]),
+          k("被平台首页推荐", "epic", [70, 96, 72, 68, 84, 56]),
+          k("获得 AI 影像节提名", "epic", [88, 78, 88, 76, 70, 76])
+        ],
+        legendary: [
+          k("成为年度爆款短片", "legendary", [90, 100, 86, 76, 92, 78]),
+          k("被江南工作室注意到", "legendary", [96, 90, 92, 82, 88, 90]),
+          k("开启自己的 AI 影业宇宙", "legendary", [100, 96, 98, 78, 94, 86])
+        ]
+      }
+    };
+
+    const cardTypes = [
+      {
+        id: "commercial",
+        name: "商业灵感卡",
+        icon: "📈",
+        risk: "低",
+        desc: "甲方爱看，平台也爱推。稳定，但可能没那么惊人。",
+        hint: "更容易获得传播和商业关键词",
+        prob: { common: 4, rare: 2, epic: -1, legendary: 0 },
+        statMods: { virality: 8, commercial: 12, creativity: -4 }
+      },
+      {
+        id: "art",
+        name: "艺术灵感卡",
+        icon: "🎬",
+        risk: "中",
+        desc: "有时像电影，有时像凌晨三点的朋友圈长文。",
+        hint: "创造力和情绪更高，收益更飘",
+        prob: { common: -2, rare: 3, epic: 2, legendary: 0 },
+        statMods: { creativity: 12, emotion: 10, commercial: -6 }
+      },
+      {
+        id: "abstract",
+        name: "抽象灵感卡",
+        icon: "🌀",
+        risk: "高",
+        desc: "可能全网爆火，也可能被评委沉默三秒。",
+        hint: "史诗和传说概率更高，但连贯度更危险",
+        prob: { common: -8, rare: 1, epic: 5, legendary: 2 },
+        statMods: { creativity: 10, virality: 10, coherence: -12 }
+      },
+      {
+        id: "scifi",
+        name: "科幻灵感卡",
+        icon: "🤖",
+        risk: "中",
+        desc: "AI 味很足，适合把出租屋拍成宇宙发射中心。",
+        hint: "AI 感和概念分更高",
+        prob: { common: -3, rare: 2, epic: 2, legendary: 1 },
+        statMods: { aiFeeling: 14, creativity: 4 }
+      },
+      {
+        id: "emotion",
+        name: "情绪灵感卡",
+        icon: "💗",
+        risk: "中",
+        desc: "让观众先笑，然后悄悄破防。",
+        hint: "情绪和完播更稳",
+        prob: { common: -1, rare: 3, epic: 1, legendary: 0 },
+        statMods: { emotion: 14, coherence: 8, virality: 3 }
+      }
+    ];
+
+    const judges = [
+      {
+        id: "platform",
+        name: "平台运营评委",
+        avatar: "📊",
+        focus: "传播、完播和二创空间",
+        score: attrs => attrs.virality * 0.45 + attrs.coherence * 0.25 + attrs.commercial * 0.2 + attrs.aiFeeling * 0.1,
+        comments: [
+          "前三秒钩子不错，完播率应该不会差。",
+          "这个标题有热榜潜力，但中段节奏还可以更狠。",
+          "我看到了二创空间，评论区应该会很忙。"
+        ]
+      },
+      {
+        id: "artist",
+        name: "艺术片导演",
+        avatar: "🎥",
+        focus: "创造力、影像气质和故事连贯",
+        score: attrs => attrs.creativity * 0.42 + attrs.coherence * 0.28 + attrs.emotion * 0.2 + attrs.aiFeeling * 0.1,
+        comments: [
+          "虽然抽象，但它有一种奇怪的真诚。",
+          "影像气质不错，不过故事逻辑有点飘。",
+          "这不是乱，是一种新型表达。"
+        ]
+      },
+      {
+        id: "investor",
+        name: "投资人",
+        avatar: "💼",
+        focus: "商业化、系列化和影响力",
+        score: attrs => attrs.commercial * 0.42 + attrs.virality * 0.28 + attrs.coherence * 0.15 + attrs.emotion * 0.15,
+        comments: [
+          "我不一定看懂，但我看到了商业化可能。",
+          "这个方向可以做系列化，预算也不算离谱。",
+          "话题性很强，适合用小预算试大传播。"
+        ]
+      }
+    ];
+
+    const upgradeDefs = {
+      home: {
+        name: "升级住所",
+        icon: "🏠",
+        effect: "每天获得基础粉丝和影响力",
+        levels: ["地下室床位", "10 平米出租屋", "合租剪辑间", "小型工作室", "城市片场办公室"],
+        baseCost: 400
+      },
+      equipment: {
+        name: "升级设备",
+        icon: "💻",
+        effect: "提升连贯度和 AI 感",
+        levels: ["二手笔记本", "外接显示器", "入门剪辑套装", "AI 渲染工作站", "云端影像实验室"],
+        baseCost: 450
+      },
+      branding: {
+        name: "形象包装",
+        icon: "✨",
+        effect: "提升评委印象和商业分",
+        levels: ["素人毕业生", "独立创作者", "新锐导演", "AI 影像创业者", "爆款导演候选人"],
+        baseCost: 420
+      },
+      network: {
+        name: "社交资源",
+        icon: "🤝",
+        effect: "提升奖励、投资人关注和影响力",
+        levels: ["同学群转发", "创作者聚会", "行业晚宴", "投资人路演", "平台内部推荐"],
+        baseCost: 500
+      }
+    };
+
+    const itemDefs = [
+      {
+        id: "fate",
+        name: "我要改命",
+        icon: "🎲",
+        cost: 200,
+        itemType: "function",
+        maxPurchases: 2,
+        effect: "存入道具槽。使用后让当前牌堆末尾增加 2 张隐藏灵感卡。"
+      },
+      {
+        id: "trend",
+        name: "热搜嗅觉",
+        icon: "🔥",
+        cost: 250,
+        itemType: "stat",
+        maxPurchases: 3,
+        effect: "下一轮传播分 +15%",
+        apply: () => addActiveItem("trend", 1)
+      },
+      {
+        id: "clientSmile",
+        name: "甲方微笑",
+        icon: "🙂",
+        cost: 250,
+        itemType: "stat",
+        maxPurchases: 3,
+        effect: "下一轮商业分 +20%",
+        apply: () => addActiveItem("clientSmile", 1)
+      },
+      {
+        id: "overnight",
+        name: "熬夜剪片",
+        icon: "🌙",
+        cost: 150,
+        itemType: "stat",
+        maxPurchases: 3,
+        effect: "下一轮连贯度 +15%，少量概率创意扣分",
+        apply: () => addActiveItem("overnight", 1)
+      },
+      {
+        id: "aiBurst",
+        name: "AI 灵感暴击",
+        icon: "⚡",
+        cost: 350,
+        itemType: "stat",
+        maxPurchases: 3,
+        effect: "下一轮史诗/传说概率提升",
+        apply: () => addActiveItem("aiBurst", 1)
+      },
+      {
+        id: "recycleUsed",
+        name: "旧梗翻红",
+        icon: "♻️",
+        cost: 300,
+        itemType: "function",
+        maxPurchases: 2,
+        effect: "存入道具槽。使用后用过的关键词可重新进入牌库，并触发怀旧传播加成。"
+      }
+    ];
+
+    const endings = [
+      {
+        min: 0,
+        title: "城市边缘剪片人",
+        text: "你还没有爆火，但你已经学会了如何把灵感变成作品。出租屋的灯还亮着，下一条视频还有机会。"
+      },
+      {
+        min: 3600,
+        title: "小有名气创作者",
+        text: "你的视频开始被陌生人转发，评论区终于不只有朋友。你发现自己已经不再只是试试看。"
+      },
+      {
+        min: 5600,
+        title: "AI 短片新星",
+        text: "你找到了 AI 影像的节奏，也找到了属于自己的观众。平台开始认真记住你的名字。"
+      },
+      {
+        min: 7600,
+        title: "爆款导演",
+        text: "你的短片开始被模仿、混剪、二创。你不再只是追热点的人，你开始制造热点。"
+      },
+      {
+        min: 9800,
+        title: "江南影像传说",
+        text: "你用 5 天从出租屋走到聚光灯下。江南的风吹过片场，算法也记住了你的名字。"
+      }
+    ];
+
+    const dailyOpportunities = [
+      {
+        id: "platformDrama",
+        name: "平台短剧赛道",
+        icon: "📱",
+        desc: "平台正在扶持高传播短剧。传播越高，粉丝奖励越明显。",
+        hint: "推荐：商业灵感卡 / 情绪灵感卡 / 抽象灵感卡",
+        rewardFocus: "粉丝增长",
+        scoreHint: "传播",
+        effectText: "如果作品传播属性较高，粉丝奖励提高。"
+      },
+      {
+        id: "investorPitch",
+        name: "投资人路演",
+        icon: "💼",
+        desc: "投资人今天会重点看商业潜力和系列化可能。",
+        hint: "推荐：商业灵感卡 / 科幻灵感卡",
+        rewardFocus: "创作资金",
+        scoreHint: "商业性",
+        effectText: "如果作品商业性较高，创作资金奖励提高。"
+      },
+      {
+        id: "aiFilmFestival",
+        name: "AI 影像节",
+        icon: "🤖",
+        desc: "影像节评委更关注 AI 感、创意和概念表达。",
+        hint: "推荐：科幻灵感卡 / 艺术灵感卡",
+        rewardFocus: "口碑 / 影响力",
+        scoreHint: "AI感 / 创意",
+        effectText: "如果作品 AI感和创意较高，口碑与影响力提高。"
+      },
+      {
+        id: "emotionalShort",
+        name: "情绪短片挑战",
+        icon: "💗",
+        desc: "观众今天更容易被真实情绪打动。",
+        hint: "推荐：情绪灵感卡 / 艺术灵感卡",
+        rewardFocus: "口碑",
+        scoreHint: "情绪 / 连贯度",
+        effectText: "如果作品情绪和连贯度较高，口碑提高。"
+      },
+      {
+        id: "abstractNight",
+        name: "抽象爆梗夜",
+        icon: "🌀",
+        desc: "今晚大家想看点离谱的。高风险作品可能获得额外传播。",
+        hint: "推荐：抽象灵感卡",
+        rewardFocus: "影响力",
+        scoreHint: "传播 / 稀有度 / 特殊组合",
+        effectText: "如果作品触发特殊组合或稀有关键词，影响力提高。"
+      }
+    ];
+
+    const audienceComments = [
+      "前三秒就想转发",
+      "这 AI 是不是偷看我生活了？",
+      "导演精神状态领先我三年",
+      "建议拍成连续剧",
+      "太抽象了，但我看完了",
+      "这就是未来短剧吗？",
+      "评论区集合，开始二创",
+      "预算不高，野心很大"
+    ];
+
+    const game = document.getElementById("game");
+    const guideState = {
+      tab: "inspiration",
+      focusId: null
+    };
+
+    const termExplanations = {
+      funding: "创作资金主要受总分、投资人评分、商业性、稀有度影响，可用于购买道具和升级。",
+      followers: "粉丝主要受平台运营评分、传播属性和作品总分影响。",
+      influence: "影响力会影响最终结局，主要来自高分作品、特殊组合、社交资源和粉丝增长。",
+      reputation: "口碑主要受艺术片导演评分、连贯度和作品完成度影响。",
+      creativity: "创意会影响综合评分和艺术片导演评分，通常来自更独特的关键词。",
+      virality: "传播会影响综合评分、平台运营评分和粉丝增长，是爆款潜力的重要来源。",
+      aiFeeling: "AI感体现作品是否充分利用 AI 影像/Prompt 生成特征，会影响综合评分。",
+      coherence: "连贯度体现故事是否能看懂，会影响艺术片导演评分、平台运营评分和口碑。",
+      commercial: "商业性影响投资人评分和创作资金收入。",
+      emotion: "情绪影响艺术表达、观众共鸣和部分评委评分。",
+      rarity: "稀有度越高，关键词越容易带来额外分数和奖励。史诗和传说词条更有爆款潜力。",
+      combo: "特殊组合是由某些关键词搭配触发的额外加成，例如赛博江南、鹅系爆梗或旧梗翻红。",
+      platformJudge: "平台运营评委更看重传播、完播、商业潜力和内容是否适合被推荐。",
+      artistJudge: "艺术片导演更看重创意、影像气质、情绪表达和故事连贯。",
+      investorJudge: "投资人更看重商业性、传播潜力、系列化可能和资金回报。",
+      overallScore: "总分由创意、传播、AI感、连贯度、商业性、情绪、稀有度和特殊组合共同决定。",
+      bestFilmScore: "最佳作品分会显著影响最终职业评分，是你 5 天里最强代表作的成绩。",
+      legendaryCount: "传说关键词数量会提高最终职业评分，代表你抽中过真正稀有的灵感牌。",
+      statItem: "属性提升道具会影响下一部作品的评分倾向，例如传播、商业性、连贯度或稀有度概率。",
+      functionItem: "功能道具会进入道具槽，需要在牌堆选择阶段手动使用。",
+      boughtToday: "今日已购买表示本次商店阶段已经买过这张道具卡，下一次商店才可再次购买。",
+      soldOut: "次数已用完表示这张道具卡已达到本局购买上限。",
+      dailyInspirationCard: "灵感卡决定今天的创作方向。它会影响关键词稀有度概率，以及短片最终的评分倾向。",
+      rarityShift: "稀有度概率变化会影响你更容易刮到普通、稀有、史诗还是传说关键词。",
+      statTendency: "属性倾向会影响作品最终的评分走向，比如更偏传播、商业、创意、AI感或情绪。",
+      tradeoff: "取舍意味着一种优势通常伴随着一种代价，例如更高传播可能换来更低连贯度，或更高创意换来更低商业性。",
+      dailyOpportunityTerm: "今日创作机会会改变今天更容易获得哪类额外奖励，比如粉丝、资金、口碑或影响力。",
+      commercialCardEffect: "商业灵感卡让作品更偏向传播和商业性，更稳定，也更容易赚钱，但创意会稍低。",
+      artCardEffect: "艺术灵感卡让作品更偏向创意和情绪，更容易拿口碑，但商业回报可能不稳定。",
+      abstractCardEffect: "抽象灵感卡提高史诗和传说概率，并加强传播与创意，但会显著降低连贯度，属于高风险高回报。",
+      scifiCardEffect: "科幻灵感卡提升 AI感和概念表达，适合冲 AI 影像节或 AI 主题作品。",
+      emotionCardEffect: "情绪灵感卡提升情绪和连贯度，让作品更容易被看懂，也更适合走口碑路线。",
+      commercialPlaystyle: "适合想稳定赚钱、冲粉丝或完成商业导向机会的玩家。",
+      artPlaystyle: "适合追求创意和口碑，希望作品更有表达感的玩家。",
+      abstractPlaystyle: "适合愿意赌高风险高回报的玩家，可能爆火，也可能翻车。",
+      scifiPlaystyle: "适合想强化 AI 视频感、概念感和未来感的玩家。",
+      emotionPlaystyle: "适合想让作品更完整、更能打动观众的玩家。"
+    };
+
+    function term(label, key) {
+      return `<span class="term-highlight" data-term="${key}" tabindex="0">${label}</span>`;
+    }
+
+    function formatNum(num) {
+      return Math.round(num).toLocaleString("zh-CN");
+    }
+
+    function clamp(num, min, max) {
+      return Math.max(min, Math.min(max, num));
+    }
+
+    function rand(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function pick(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function createEmptyUsedKeywords() {
+      return {
+        character: [],
+        scene: [],
+        conflict: [],
+        style: [],
+        ending: []
+      };
+    }
+
+    function createEmptyItemPurchaseCounts() {
+      return {
+        trend: 0,
+        clientSmile: 0,
+        overnight: 0,
+        aiBurst: 0,
+        fate: 0,
+        recycleUsed: 0
+      };
+    }
+
+    function sample(arr, count) {
+      const copy = [...arr];
+      const result = [];
+      while (copy.length && result.length < count) {
+        result.push(copy.splice(Math.floor(Math.random() * copy.length), 1)[0]);
+      }
+      return result;
+    }
+
+    function describeProbabilityShift(delta = 0) {
+      if (delta >= 4) return "显著提高";
+      if (delta >= 2) return "提高";
+      if (delta >= 1) return "略微提高";
+      if (delta <= -4) return "显著降低";
+      if (delta <= -2) return "降低";
+      if (delta <= -1) return "略微降低";
+      return "正常";
+    }
+
+    function describeStatShift(delta = 0) {
+      if (delta >= 12) return "显著提高";
+      if (delta >= 8) return "提高";
+      if (delta >= 4) return "略微提高";
+      if (delta <= -12) return "显著降低";
+      if (delta <= -8) return "降低";
+      if (delta <= -4) return "略微降低";
+      return "正常";
+    }
+
+    function getCardArchetype(card) {
+      return {
+        commercial: "稳定赚钱",
+        art: "口碑路线",
+        abstract: "高风险爆梗",
+        scifi: "AI 概念流",
+        emotion: "情绪共鸣流"
+      }[card.id] || "灵感路线";
+    }
+
+    function getCardTradeoffText(card) {
+      return {
+        commercial: "更稳，更容易赚钱，但作品可能不够惊艳。",
+        art: "更有创意和情绪，但商业收益不稳定。",
+        abstract: "更容易出史诗和传说，但连贯度更危险。",
+        scifi: "AI 感更强，但不一定最适合纯商业导向。",
+        emotion: "更完整、更容易共鸣，但极端爆梗概率不如抽象路线。"
+      }[card.id] || "选择一种优势，也要接受它的代价。";
+    }
+
+    function getCardAccent(card) {
+      return {
+        commercial: "#ffce54",
+        art: "#bc89ff",
+        abstract: "#ff6bba",
+        scifi: "#73d7ff",
+        emotion: "#ff8ea1"
+      }[card.id] || "#42e8bf";
+    }
+
+    function getCardTooltipKey(card, type) {
+      const prefix = {
+        commercial: "commercial",
+        art: "art",
+        abstract: "abstract",
+        scifi: "scifi",
+        emotion: "emotion"
+      }[card.id];
+      return `${prefix}${type}`;
+    }
+
+    function getCardRecommendationReason(card, dailyOpportunity) {
+      if (!dailyOpportunity) return "今天没有明确机会，你可以根据资源和个人路线自由选择。";
+      const goodMatches = {
+        platformDrama: ["commercial", "emotion", "abstract"],
+        investorPitch: ["commercial", "scifi"],
+        aiFilmFestival: ["scifi", "art"],
+        emotionalShort: ["emotion", "art"],
+        abstractNight: ["abstract"]
+      };
+      if ((goodMatches[dailyOpportunity.id] || []).includes(card.id)) {
+        if (dailyOpportunity.id === "platformDrama") return `今天的「${dailyOpportunity.name}」更偏好高传播作品，这张卡更容易帮助你涨粉。`;
+        if (dailyOpportunity.id === "investorPitch") return `今天的「${dailyOpportunity.name}」更看重商业潜力，这张卡与资金目标较匹配。`;
+        if (dailyOpportunity.id === "aiFilmFestival") return `今天的「${dailyOpportunity.name}」更看重 AI感和创意，这张卡与今日机会较匹配。`;
+        if (dailyOpportunity.id === "emotionalShort") return `今天的「${dailyOpportunity.name}」更吃情绪和连贯度，这张卡更容易拿口碑。`;
+        if (dailyOpportunity.id === "abstractNight") return `今天的「${dailyOpportunity.name}」鼓励离谱和爆梗，这张卡正适合赌高风险高回报。`;
+      }
+      return `今天的机会与这张卡不完全匹配，但如果你想走「${getCardArchetype(card)}」，仍然可以尝试。`;
+    }
+
+    function renderProbabilityEffects(card) {
+      const labels = { common: "普通", rare: "稀有", epic: "史诗", legendary: "传说" };
+      return rarityOrder.map(rarity => `
+        <div class="effect-row"><b>${labels[rarity]}</b>：${describeProbabilityShift(card.prob[rarity] || 0)}</div>
+      `).join("");
+    }
+
+    function renderStatEffects(card) {
+      const statLabels = {
+        creativity: ["创意", "creativity"],
+        virality: ["传播", "virality"],
+        aiFeeling: ["AI感", "aiFeeling"],
+        coherence: ["连贯度", "coherence"],
+        commercial: ["商业性", "commercial"],
+        emotion: ["情绪", "emotion"]
+      };
+      return Object.entries(card.statMods).map(([stat, value]) => {
+        const [label, key] = statLabels[stat];
+        return `<div class="effect-row">${term(label, key)}：${describeStatShift(value)}</div>`;
+      }).join("");
+    }
+
+    function toast(text) {
+      const el = document.getElementById("toast");
+      el.textContent = text;
+      el.classList.add("show");
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => el.classList.remove("show"), 1500);
+    }
+
+    function openDesignModal() {
+      document.getElementById("designModal").showModal();
+    }
+
+    function closeDesignModal() {
+      document.getElementById("designModal").close();
+    }
+
+    function openGuide(tab = "inspiration", focusId = null) {
+      guideState.tab = tab;
+      guideState.focusId = focusId;
+      renderGuide();
+      document.getElementById("guideModal").showModal();
+      setTimeout(() => {
+        const focused = document.querySelector(".guide-card.focus");
+        if (focused) focused.scrollIntoView({ block: "center", behavior: "smooth" });
+      }, 30);
+    }
+
+    function closeGuide() {
+      document.getElementById("guideModal").close();
+    }
+
+    function setGuideTab(tab) {
+      guideState.tab = tab;
+      guideState.focusId = null;
+      renderGuide();
+    }
+
+    function renderGuide() {
+      const tabs = [
+        ["inspiration", "灵感卡"],
+        ["items", "道具"],
+        ["scoring", "评分"],
+        ["discovered", "已发现关键词"]
+      ];
+      document.getElementById("guideBody").innerHTML = `
+        <button class="guide-close" onclick="closeGuide()" aria-label="关闭 AI 创作手册">×</button>
+        <h2>AI 创作手册</h2>
+        <p class="muted">这里记录灵感卡、道具、评分规则和本局已经发现的关键词。主流程保持快速，细节都放在这本导演手册里。</p>
+        <div class="guide-tabs">
+          ${tabs.map(([id, label]) => `<button class="guide-tab ${guideState.tab === id ? "active" : ""}" onclick="setGuideTab('${id}')">${label}</button>`).join("")}
+        </div>
+        <div class="guide-content">${renderGuideContent()}</div>
+        ${hasActiveRun() ? `<div class="actions" style="justify-content:flex-end"><button class="btn secondary" onclick="closeGuide(); goHome()">返回标题页（可继续）</button></div>` : ""}
+      `;
+      setupTermTooltips();
+    }
+
+    function renderGuideContent() {
+      if (guideState.tab === "items") return renderGuideItems();
+      if (guideState.tab === "scoring") return renderGuideScoring();
+      if (guideState.tab === "discovered") return renderGuideDiscovered();
+      return renderGuideInspiration();
+    }
+
+    function renderGuideInspiration() {
+      return `
+        <section class="guide-section">
+          <div class="guide-grid">
+            ${cardTypes.map(card => `
+              <article class="guide-card ${guideState.focusId === card.id ? "focus" : ""}" style="--card-accent:${getCardAccent(card)}" id="guide-card-${card.id}">
+                <h3>${card.icon} ${card.name}</h3>
+                <span class="archetype">${getCardArchetype(card)}</span>
+                <p class="muted">${card.desc}</p>
+                <h4>策略角色</h4>
+                <p>${term(getCardArchetype(card), getCardTooltipKey(card, "Playstyle"))}</p>
+                <h4>${term("稀有度概率", "rarityShift")}倾向</h4>
+                <div class="inspiration-effects">${renderProbabilityEffects(card)}</div>
+                <h4>${term("属性倾向", "statTendency")}</h4>
+                <div class="stat-effects">${renderStatEffects(card)}</div>
+                <h4>${term("取舍", "tradeoff")}</h4>
+                <p>${getCardTradeoffText(card)}</p>
+                <h4>适合</h4>
+                <p>${getCardRecommendationReason(card, state.dailyOpportunity)}</p>
+              </article>
+            `).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderGuideItems() {
+      const statItems = itemDefs.filter(item => item.itemType === "stat");
+      const functionItems = itemDefs.filter(item => item.itemType === "function");
+      const renderItem = item => `
+        <article class="guide-entry">
+          <h3>${item.icon} ${item.name}</h3>
+          <div class="tag-row">
+            <span class="badge">${item.itemType === "function" ? term("功能道具", "functionItem") : term("属性提升", "statItem")}</span>
+            <span class="badge">费用：${formatNum(item.cost)}</span>
+            <span class="badge">本局上限：${item.maxPurchases}</span>
+          </div>
+          <p>${item.effect}</p>
+          <p class="muted">${item.itemType === "function" ? "购买后进入道具槽，需要在牌堆选择阶段手动使用。" : "购买后通常自动影响下一部作品或下一轮评分倾向。"}</p>
+        </article>
+      `;
+      return `
+        <section class="guide-section">
+          <h3>属性提升道具</h3>
+          <div class="guide-grid">${statItems.map(renderItem).join("")}</div>
+        </section>
+        <section class="guide-section">
+          <h3>功能道具</h3>
+          <div class="guide-grid">${functionItems.map(renderItem).join("")}</div>
+        </section>
+      `;
+    }
+
+    function renderGuideScoring() {
+      const attrs = [
+        ["创意", "creativity"], ["传播", "virality"], ["AI感", "aiFeeling"],
+        ["连贯度", "coherence"], ["商业性", "commercial"], ["情绪", "emotion"]
+      ];
+      const judgeTermKeys = {
+        platform: "platformJudge",
+        artist: "artistJudge",
+        investor: "investorJudge"
+      };
+      return `
+        <section class="guide-section">
+          <h3>六项作品属性</h3>
+          <div class="guide-grid">${attrs.map(([label, key]) => `<div class="guide-entry"><h3>${term(label, key)}</h3><p>${termExplanations[key]}</p></div>`).join("")}</div>
+        </section>
+        <section class="guide-section">
+          <h3>三位评委</h3>
+          <div class="guide-grid">${judges.map(judge => {
+            const key = judgeTermKeys[judge.id];
+            return `<div class="guide-entry">${renderJudgeAvatar(judge)}<h3>${term(judge.name, key)}</h3><p>${termExplanations[key]}</p></div>`;
+          }).join("")}</div>
+        </section>
+        <section class="guide-section">
+          <h3>奖励如何产生</h3>
+          <div class="guide-entry">
+            <p>${term("传播", "virality")}和${term("平台运营评委", "platformJudge")}影响${term("粉丝", "followers")}；${term("商业性", "commercial")}和${term("投资人", "investorJudge")}影响${term("创作资金", "funding")}；${term("连贯度", "coherence")}、${term("创意", "creativity")}、${term("情绪", "emotion")}和${term("艺术片导演", "artistJudge")}影响${term("口碑", "reputation")}。</p>
+            <p>${term("特殊组合", "combo")}、${term("稀有度", "rarity")}和传说关键词会影响${term("影响力", "influence")}与终局表现。</p>
+          </div>
+        </section>
+        <section class="guide-section">
+          <h3>终局评分</h3>
+          <div class="guide-entry">
+            <p>最终身份由${term("最佳作品分", "bestFilmScore")}、${term("粉丝", "followers")}、${term("影响力", "influence")}、${term("口碑", "reputation")}、累计${term("创作资金", "funding")}、${term("传说关键词", "legendaryCount")}和升级贡献共同决定。</p>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderGuideDiscovered() {
+      const groups = state.keywordOrder.map(category => {
+        const list = state.usedKeywordsByCategory[category] || [];
+        return `
+          <section class="guide-section">
+            <h3>${categoryNames[category]}</h3>
+            ${list.length ? `<div class="guide-grid">${list.map(item => `
+              <div class="guide-entry">
+                <h3>${item.text}</h3>
+                <p>${categoryNames[item.category]} · ${rarityNames[item.rarity]} · 第 ${item.usedDay} 天发现${item.reused ? " · 旧梗翻红" : ""}</p>
+              </div>
+            `).join("")}</div>` : `<div class="guide-empty">还没有发现${categoryNames[category]}关键词。</div>`}
+          </section>
+        `;
+      }).join("");
+      const total = Object.values(state.usedKeywordsByCategory).reduce((sum, list) => sum + list.length, 0);
+      return total ? groups : `<div class="guide-empty">还没有发现关键词。开始创作后，刮开的关键词会记录在这里。</div>`;
+    }
+
+    function render() {
+      const screens = {
+        start: renderStart,
+        daily: renderDailyStatus,
+        card: renderCardSelection,
+        scratch: renderScratchCard,
+        film: renderFilm,
+        judges: renderJudges,
+        reward: renderReward,
+        shop: renderShop,
+        final: renderFinalEnding
+      };
+      game.innerHTML = screens[state.screen]();
+      if (state.screen === "scratch") {
+        setTimeout(setupScratchCanvas, 40);
+      }
+      if (state.screen === "film") {
+        setTimeout(() => toast("AI 分镜生成完毕，观众已经在弹幕区开会了"), 300);
+      }
+      if (state.screen === "judges") {
+        setTimeout(animateScores, 80);
+      }
+      setupTermTooltips();
+    }
+
+    function setupTermTooltips() {
+      let tooltip = document.getElementById("termTooltip");
+      if (!tooltip) {
+        tooltip = document.createElement("div");
+        tooltip.id = "termTooltip";
+        tooltip.className = "term-tooltip";
+        document.body.appendChild(tooltip);
+      }
+      const hide = () => tooltip.classList.remove("show");
+      const show = (el) => {
+        const text = termExplanations[el.dataset.term];
+        if (!text) return;
+        tooltip.textContent = text;
+        const rect = el.getBoundingClientRect();
+        tooltip.style.left = `${Math.min(window.innerWidth - 300, Math.max(12, rect.left))}px`;
+        tooltip.style.top = `${Math.min(window.innerHeight - 90, rect.bottom + 8)}px`;
+        tooltip.classList.add("show");
+      };
+      document.querySelectorAll(".term-highlight").forEach(el => {
+        el.onmouseenter = () => show(el);
+        el.onmouseleave = hide;
+        el.onfocus = () => show(el);
+        el.onblur = hide;
+        el.onclick = event => {
+          event.stopPropagation();
+          show(el);
+        };
+      });
+      document.onclick = event => {
+        if (!event.target.closest(".term-highlight")) hide();
+      };
+    }
+
+    function renderStats() {
+      return `
+        <div class="stats-grid">
+          <div class="stat"><span>💵 ${term("创作资金", "funding")}</span><strong>${formatNum(state.funding)}</strong></div>
+          <div class="stat"><span>👥 ${term("粉丝", "followers")}</span><strong>${formatNum(state.followers)}</strong></div>
+          <div class="stat"><span>🔥 ${term("影响力", "influence")}</span><strong>${formatNum(state.influence)}</strong></div>
+          <div class="stat"><span>⭐ ${term("口碑", "reputation")}</span><strong>${formatNum(state.reputation)}</strong></div>
+        </div>
+      `;
+    }
+
+    function getIdentityLabel() {
+      const score = state.followers / 80 + state.influence * 24 + state.reputation * 36 + state.bestFilmScore * 6;
+      if (score > 5600) return "爆款导演候选人";
+      if (score > 3600) return "AI 短片新星";
+      if (score > 1800) return "小有名气创作者";
+      return "出租屋剪片人";
+    }
+
+    function renderStart() {
+      return `
+        <section class="screen hero">
+          <div class="hero-copy">
+            <h1>刮出爆款导演</h1>
+            <p class="subtitle">从出租屋开始，用 AI 拍出你的第一支爆款短片</p>
+            <p class="intro">你是一名刚毕业的大学生，带着 300 元创作资金来到新城市。你没有团队，没有资源，只有一叠 AI 灵感刮卡。5 天后，你能成为爆款 AI 导演吗？</p>
+            <div class="actions">
+              ${hasActiveRun() ? `<button class="btn" onclick="continueProgress()">继续当前进度</button>` : ""}
+              <button class="btn ${hasActiveRun() ? "secondary" : ""}" onclick="startGame()">${hasActiveRun() ? "重新开始" : "开始创作"}</button>
+              <button class="btn secondary" onclick="openDesignModal()">查看设计说明</button>
+            </div>
+          </div>
+          <div class="panel phone">
+            <div class="phone-screen">
+              <div class="fake-video-art">
+                <i class="floating-shape"></i>
+                <i class="floating-shape"></i>
+                <i class="floating-shape"></i>
+                <div class="video-title">AI 正在把出租屋渲染成年度片场</div>
+                <span class="danmu">前三秒就想转发</span>
+                <span class="danmu">这标题有点东西</span>
+                <span class="danmu">导演还活着吗</span>
+                <span class="danmu">建议马上拍第二集</span>
+              </div>
+            </div>
+            <div class="tag-row">
+              <span class="tag">离线可玩</span>
+              <span class="tag">5 天循环</span>
+              <span class="tag">AI 视频模拟</span>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function hasActiveRun() {
+      return !!state.dailyOpportunity || state.day > 1 || state.funding !== 300 || state.followers > 0 || state.currentKeywords.length > 0 || state.screen !== "start";
+    }
+
+    function goHome() {
+      if (state.screen !== "start") {
+        state.resumeScreen = state.screen;
+      }
+      state.screen = "start";
+      render();
+    }
+
+    function continueProgress() {
+      state.screen = state.resumeScreen && state.resumeScreen !== "start" ? state.resumeScreen : "daily";
+      render();
+    }
+
+    function startGame() {
+      resetGame(false);
+      generateDailyOpportunity();
+      state.screen = "daily";
+      state.resumeScreen = "daily";
+      render();
+    }
+
+    function generateDailyOpportunity() {
+      state.dailyOpportunity = pick(dailyOpportunities);
+    }
+
+    function renderDailyOpportunity(compact = false) {
+      const opp = state.dailyOpportunity;
+      if (!opp) return "";
+      return `
+        <div class="opportunity-panel">
+          <h3>今日创作机会：${opp.icon} ${opp.name}</h3>
+          <p>${opp.desc}</p>
+          <p><strong>策略提示：</strong>${opp.hint}</p>
+          <p><strong>奖励倾向：</strong>${opp.rewardFocus} · <strong>关注：</strong>${opp.scoreHint}</p>
+          ${compact ? "" : `<p>${opp.effectText}</p>`}
+        </div>
+      `;
+    }
+
+    function renderDailyStatus() {
+      const homeLevel = upgradeDefs.home.levels[state.upgrades.home];
+      return `
+        <section class="screen layout">
+          <div class="panel wide-card">
+            <h2 class="section-title">第 ${state.day} 天 / 共 ${MAX_DAYS} 天</h2>
+            <p class="section-sub">当前身份：<strong>${getIdentityLabel()}</strong>。住所状态：${homeLevel}。今天也要让算法看见你。</p>
+            ${renderDailyOpportunity(false)}
+            ${renderStats()}
+            <div class="tag-row">
+              <span class="badge">${term("最佳作品分", "bestFilmScore")} ${state.bestFilmScore}</span>
+              <span class="badge">累计${term("创作资金", "funding")} ${formatNum(state.totalEarnedFunding)}</span>
+              <span class="badge">${term("传说关键词", "legendaryCount")} ${state.legendaryFound}</span>
+            </div>
+            <div class="actions">
+              <button class="btn" onclick="showCardSelection()">开始今天的创作</button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function showDailyStatus() {
+      state.screen = "daily";
+      render();
+    }
+
+    function showCardSelection() {
+      state.availableCards = sample(cardTypes, 3);
+      state.screen = "card";
+      render();
+    }
+
+    function renderCardSelection() {
+      return `
+        <section class="screen layout">
+          <div class="panel wide-card">
+            <h2 class="section-title">选择今天的 AI 灵感卡</h2>
+            <div class="tag-row" style="margin-bottom:12px">
+              <span class="badge">第 ${state.day} 天 / 共 ${MAX_DAYS} 天</span>
+            </div>
+            <p class="section-sub">今天的机会会影响额外奖励。选择一张灵感卡，决定今天作品更偏向哪种创作路线。详细规则可以在 AI 创作手册中查看。</p>
+            ${renderDailyOpportunity(true)}
+            <div class="strategy-note">
+              <h3>为什么要做出取舍？</h3>
+              <p>每张路线都有优势和代价。想快速决策就看「今日匹配」，想研究细节就打开手册。</p>
+            </div>
+            <div class="grid three">
+              ${state.availableCards.map(card => `
+                <article class="choice-card" style="--card-accent:${getCardAccent(card)}">
+                  <h3>${card.icon} ${card.name}</h3>
+                  <span class="archetype">${getCardArchetype(card)}</span>
+                  <p class="muted">${card.desc}</p>
+                  <p class="compact-card-note"><strong>今日匹配：</strong>${getCardRecommendationReason(card, state.dailyOpportunity)}</p>
+                  <div class="actions">
+                    <button class="btn" onclick="selectCard('${card.id}')">选择这张</button>
+                    <button class="btn secondary" onclick="openGuide('inspiration', '${card.id}')">查看详情</button>
+                  </div>
+                </article>
+              `).join("")}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function selectCard(cardId) {
+      state.selectedCard = cardTypes.find(card => card.id === cardId);
+      startSequentialScratch();
+    }
+
+    function startSequentialScratch() {
+      state.currentKeywords = [];
+      state.scratchStepIndex = 0;
+      state.currentCategoryDeck = [];
+      state.selectedDeckIndex = null;
+      state.selectedKeywordCandidate = null;
+      state.currentScratchLocked = false;
+      state.lastConfirmMessage = "";
+      state.deckNote = "";
+      prepareCategoryDeck();
+      state.screen = "scratch";
+      render();
+    }
+
+    function prepareCategoryDeck() {
+      const category = state.keywordOrder[state.scratchStepIndex];
+      const deckSize = 12;
+      state.deckNote = "";
+      state.currentDeckAllowsUsed = state.recycleUsedUnlocked;
+      state.currentCategoryDeck = generateCategoryDeck(category, deckSize, state.currentDeckAllowsUsed);
+      state.selectedDeckIndex = null;
+      state.selectedKeywordCandidate = null;
+      state.currentScratchLocked = false;
+    }
+
+    function generateCategoryDeck(category, deckSize, allowUsed = false) {
+      const deck = [];
+      const localUsed = new Set();
+      if (allowUsed && state.usedKeywordsByCategory[category].length) {
+        const reused = { ...pick(state.usedKeywordsByCategory[category]), reused: true };
+        deck.push(reused);
+        localUsed.add(reused.text);
+      }
+      while (deck.length < deckSize) {
+        const candidate = generateKeywordCandidate(category, localUsed, allowUsed);
+        deck.push(candidate);
+        localUsed.add(candidate.text);
+      }
+      return deck;
+    }
+
+    function generateKeywordCandidate(category, localUsed = new Set(), allowUsed = false) {
+      for (let attempt = 0; attempt < 24; attempt++) {
+        const rarity = rollRarity(state.selectedCard);
+        const pool = keywordPools[category][rarity] || keywordPools[category].common;
+        const available = pool.filter(item => (allowUsed || !state.usedKeywordTexts.has(item.text)) && !localUsed.has(item.text));
+        const uniqueFallback = rarityOrder
+          .flatMap(level => keywordPools[category][level] || [])
+          .filter(item => (allowUsed || !state.usedKeywordTexts.has(item.text)) && !localUsed.has(item.text));
+        const unusedFallback = rarityOrder
+          .flatMap(level => keywordPools[category][level] || [])
+          .filter(item => !state.usedKeywordTexts.has(item.text));
+        const duplicateUnusedFallback = unusedFallback.length ? unusedFallback : [];
+        const sameRarityFallback = allowUsed ? pool.filter(item => !localUsed.has(item.text)) : duplicateUnusedFallback;
+        const source = available.length ? available : uniqueFallback.length ? uniqueFallback : sameRarityFallback;
+        if (source.length) {
+          const picked = pick(source);
+          return { ...picked, category, reused: allowUsed && state.usedKeywordTexts.has(picked.text) };
+        }
+      }
+      const fallbackPool = rarityOrder.flatMap(rarity => keywordPools[category][rarity] || []);
+      const picked = pick(fallbackPool);
+      return { ...picked, category, reused: state.usedKeywordTexts.has(picked.text) };
+    }
+
+    function rollRarity(card) {
+      const probs = { common: 60, rare: 28, epic: 10, legendary: 2 };
+      Object.entries(card.prob).forEach(([rarity, delta]) => {
+        probs[rarity] += delta;
+      });
+      if (state.activeItems.aiBurst) {
+        probs.common -= 10;
+        probs.epic += 7;
+        probs.legendary += 3;
+      }
+      const total = Object.values(probs).reduce((sum, value) => sum + Math.max(0, value), 0);
+      let roll = rand(0, total);
+      for (const rarity of rarityOrder) {
+        roll -= Math.max(0, probs[rarity]);
+        if (roll <= 0) return rarity;
+      }
+      return "common";
+    }
+
+    function renderScratchCard() {
+      const totalSteps = state.keywordOrder.length;
+      const category = state.keywordOrder[state.scratchStepIndex];
+      const selected = state.selectedKeywordCandidate;
+      const complete = state.currentKeywords.length === totalSteps;
+      const progressText = `Prompt 进度：${state.currentKeywords.length} / ${totalSteps}`;
+      return `
+        <section class="screen layout">
+          <div class="panel wide-card">
+            <h2 class="section-title">${complete ? "Prompt 已集齐" : `第 ${state.scratchStepIndex + 1} / ${totalSteps} 步：选择${categoryNames[category]}灵感卡`}</h2>
+            <p class="section-sub">${complete ? "5 个关键词已经确认，AI 片场搭好，可以进入短片生成。" : selected ? "你选择了一张命运牌。现在刮开银色涂层，看看 AI 片场给了你什么 Prompt。" : "从整桌神秘牌背中选择一张。每张牌看起来都一样，真正的关键词和稀有度只有刮开后才知道。"}</p>
+            <div class="scratch-wrap">
+              <div>
+                ${complete ? renderPromptSummary(true) : selected ? renderSelectedScratchCard(selected) : renderDeckCards()}
+              </div>
+              <aside class="panel wide-card">
+                <h3>${state.selectedCard.icon} ${state.selectedCard.name}</h3>
+                <p class="muted">${state.selectedCard.desc}</p>
+                <div class="tag-row">
+                  <span class="badge">${progressText}</span>
+                  <span class="badge">风险：${state.selectedCard.risk}</span>
+                  ${!complete ? `<span class="badge">牌堆：${state.currentCategoryDeck.length} 张</span>` : ""}
+                </div>
+                ${state.deckNote && !selected && !complete ? `<p class="confirm-note">${state.deckNote}</p>` : ""}
+                ${state.lastConfirmMessage ? `<p class="confirm-note">${state.lastConfirmMessage}</p>` : ""}
+                <h3 style="margin-top:18px">道具槽</h3>
+                ${renderItemSlot(complete, selected)}
+                <h3 style="margin-top:18px">当前短片 Prompt</h3>
+                ${renderPromptSummary(false)}
+                <div class="actions">
+                  ${complete ? `<button class="btn warn" onclick="generateFilm()">生成 AI 短片</button>` : selected ? `
+                    <button class="btn warn" id="confirmKeywordBtn" onclick="confirmCurrentKeyword()" disabled>确认这个关键词</button>
+                    <button class="btn secondary" onclick="revealCurrentKeyword()">直接揭晓本关键词</button>
+                    ${state.currentScratchLocked ? "" : `<button class="btn secondary" onclick="clearDeckSelection()">放回牌桌重选</button>`}
+                  ` : `<button class="btn secondary" disabled>先选择一张灵感卡</button>`}
+                  ${!complete ? `<button class="btn secondary" onclick="abandonCurrentCreation()">放弃本次创作</button>` : ""}
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderItemSlot(complete, selected) {
+      const canUse = state.screen === "scratch" && !complete && !selected;
+      const fateCount = state.itemInventory.fate || 0;
+      const recycleCount = state.itemInventory.recycleUsed || 0;
+      return `
+        <div class="item-slot">
+          <div class="slot-item">
+            <div class="slot-item-head"><span>🎲 我要改命</span><span>x ${fateCount}</span></div>
+            <p>当前牌堆末尾增加 2 张隐藏灵感卡。</p>
+            <button class="btn secondary" onclick="useFateOnCurrentDeck()" ${!canUse || fateCount <= 0 ? "disabled" : ""}>使用</button>
+          </div>
+          <div class="slot-item">
+            <div class="slot-item-head"><span>♻️ 旧梗翻红</span><span>${state.recycleUsedUnlocked ? "已启用" : `x ${recycleCount}`}</span></div>
+            <p>用过的关键词可重新进入牌库，并触发怀旧传播加成。</p>
+            <button class="btn secondary" onclick="useRecycleUsed()" ${!canUse || recycleCount <= 0 || state.recycleUsedUnlocked ? "disabled" : ""}>${state.recycleUsedUnlocked ? "已启用" : "使用"}</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function useFateOnCurrentDeck() {
+      const complete = state.currentKeywords.length === state.keywordOrder.length;
+      if (state.screen !== "scratch" || complete || state.selectedKeywordCandidate) {
+        toast("请在选择牌背前使用这个道具。");
+        return;
+      }
+      if ((state.itemInventory.fate || 0) <= 0) {
+        toast("道具槽里没有我要改命。");
+        return;
+      }
+      const category = state.keywordOrder[state.scratchStepIndex];
+      const localUsed = new Set(state.currentCategoryDeck.map(card => card.text));
+      for (let i = 0; i < 2; i++) {
+        const extra = generateKeywordCandidate(category, localUsed, state.recycleUsedUnlocked);
+        state.currentCategoryDeck.push(extra);
+        localUsed.add(extra.text);
+      }
+      state.itemInventory.fate -= 1;
+      state.deckNote = "我要改命生效：牌堆末尾多出了 2 张新灵感卡。";
+      toast(state.deckNote);
+      render();
+    }
+
+    function useRecycleUsed() {
+      const complete = state.currentKeywords.length === state.keywordOrder.length;
+      if (state.screen !== "scratch" || complete || state.selectedKeywordCandidate) {
+        toast("请在选择牌背前使用这个道具。");
+        return;
+      }
+      if (state.recycleUsedUnlocked) {
+        toast("旧梗翻红已经启用。");
+        return;
+      }
+      if ((state.itemInventory.recycleUsed || 0) <= 0) {
+        toast("道具槽里没有旧梗翻红。");
+        return;
+      }
+      state.itemInventory.recycleUsed -= 1;
+      state.recycleUsedUnlocked = true;
+      state.currentDeckAllowsUsed = true;
+      state.deckNote = "旧梗翻红已启用：用过的灵感也可能重新回到牌堆。";
+      const category = state.keywordOrder[state.scratchStepIndex];
+      state.currentCategoryDeck = generateCategoryDeck(category, Math.max(12, state.currentCategoryDeck.length), true);
+      toast(state.deckNote);
+      render();
+    }
+
+    function renderDeckCards() {
+      const category = state.keywordOrder[state.scratchStepIndex];
+      const usedCards = state.usedKeywordsByCategory[category] || [];
+      return `
+        <div class="deck-grid">
+          ${usedCards.map(item => `
+            <button class="deck-card used-card" disabled aria-label="${item.text} 已使用">
+              <span class="deck-card-inner">
+                <span class="deck-card-back">
+                  <span class="used-label">已使用</span>
+                  <strong>${item.text}</strong>
+                  <small>${categoryNames[item.category]} · ${rarityNames[item.rarity]}<br><span class="used-day">第 ${item.usedDay} 天使用</span></small>
+                </span>
+              </span>
+            </button>
+          `).join("")}
+          ${state.currentCategoryDeck.map((card, index) => {
+            const rot = ((index % 5) - 2) * 1.8;
+            const x = ((index % 4) - 1.5) * 12;
+            return `
+            <button class="deck-card dealt" onclick="selectDeckCard(${index})" style="--delay:${index * 0.045}s; --rot:${rot}deg; --x:${x}px" aria-label="选择第 ${index + 1} 张${categoryNames[category]}灵感卡">
+              <span class="deck-card-inner">
+                <span class="deck-card-back">
+                  <span class="deck-pattern">✦</span>
+                  <strong>${categoryNames[category]}灵感卡</strong>
+                  <small>Prompt Card<br>点击选择一张命运</small>
+                </span>
+              </span>
+            </button>
+          `}).join("")}
+        </div>
+      `;
+    }
+
+    function renderSelectedScratchCard(item) {
+      return `
+        <div class="scratch-stage single-scratch" id="scratchStage">
+          <div class="keyword-layer">
+            <div class="keyword-slot" id="revealedKeywordSlot">
+              <small>${categoryNames[item.category]} · ${rarityNames[item.rarity]}</small>
+              <strong>${item.text}</strong>
+            </div>
+          </div>
+          <canvas id="scratchCanvas"></canvas>
+        </div>
+        <div class="progress-line"><i id="scratchProgressBar"></i></div>
+        <p class="muted">刮开进度：<span id="scratchProgressText">0%</span></p>
+      `;
+    }
+
+    function renderPromptSummary(large) {
+      const rows = state.keywordOrder.map(category => {
+        const item = state.currentKeywords.find(keyword => keyword.category === category);
+        return `
+          <div class="prompt-row ${item ? `rarity-${item.rarity}` : ""}">
+            <b>${categoryNames[category]}</b>
+            <span>${item ? `${item.text} · ${rarityNames[item.rarity]}` : "等待揭晓"}</span>
+          </div>
+        `;
+      }).join("");
+      return `<div class="prompt-panel ${large ? "large" : ""}">${rows}</div>`;
+    }
+
+    function selectDeckCard(index) {
+      state.selectedDeckIndex = index;
+      state.selectedKeywordCandidate = state.currentCategoryDeck[index];
+      state.currentScratchLocked = false;
+      toast(`你选择了第 ${index + 1} 张卡，开始刮开命运。`);
+      render();
+    }
+
+    function clearDeckSelection() {
+      if (state.currentScratchLocked) {
+        toast("这张灵感卡已经刮开，不能放回牌桌了。");
+        return;
+      }
+      state.selectedDeckIndex = null;
+      state.selectedKeywordCandidate = null;
+      render();
+    }
+
+    function setupScratchCanvas() {
+      const canvas = document.getElementById("scratchCanvas");
+      const stage = document.getElementById("scratchStage");
+      if (!canvas || !stage) return;
+
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      const rect = stage.getBoundingClientRect();
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(rect.width * ratio);
+      canvas.height = Math.floor(rect.height * ratio);
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+      ctx.scale(ratio, ratio);
+      drawScratchCover(ctx, rect.width, rect.height);
+
+      let drawing = false;
+      const scratch = event => {
+        if (!drawing) return;
+        const p = getPointer(event, canvas);
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 34, 0, Math.PI * 2);
+        ctx.fill();
+        spawnParticle(p.x, p.y);
+        updateScratchProgress(canvas, ctx);
+      };
+
+      canvas.onpointerdown = event => {
+        state.currentScratchLocked = true;
+        drawing = true;
+        canvas.setPointerCapture(event.pointerId);
+        scratch(event);
+      };
+      canvas.onpointermove = scratch;
+      canvas.onpointerup = () => drawing = false;
+      canvas.onpointerleave = () => drawing = false;
+    }
+
+    function drawScratchCover(ctx, width, height) {
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, "#d7dde7");
+      gradient.addColorStop(0.5, "#8f9aaa");
+      gradient.addColorStop(1, "#eef2f7");
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = "rgba(255,255,255,0.24)";
+      for (let i = -height; i < width; i += 42) {
+        ctx.fillRect(i, 0, 16, height * 1.6);
+      }
+      ctx.fillStyle = "rgba(20,26,34,0.64)";
+      ctx.font = "800 26px sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("按住刮开 Prompt 灵感", width / 2, height / 2);
+      ctx.font = "600 15px sans-serif";
+      ctx.fillText("AI Inspiration Card", width / 2, height / 2 + 34);
+    }
+
+    function getPointer(event, canvas) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+      };
+    }
+
+    function spawnParticle(x, y) {
+      const stage = document.getElementById("scratchStage");
+      const dot = document.createElement("span");
+      dot.style.position = "absolute";
+      dot.style.left = `${x}px`;
+      dot.style.top = `${y}px`;
+      dot.style.width = "7px";
+      dot.style.height = "7px";
+      dot.style.borderRadius = "50%";
+      dot.style.background = "rgba(255, 206, 84, 0.9)";
+      dot.style.pointerEvents = "none";
+      dot.style.transform = "translate(-50%, -50%)";
+      dot.style.animation = "pop 0.36s ease forwards";
+      stage.appendChild(dot);
+      setTimeout(() => dot.remove(), 360);
+    }
+
+    function updateScratchProgress(canvas, ctx) {
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let transparent = 0;
+      for (let i = 3; i < data.length; i += 16) {
+        if (data[i] < 20) transparent += 1;
+      }
+      const total = data.length / 16;
+      const percent = Math.floor((transparent / total) * 100);
+      document.getElementById("scratchProgressText").textContent = `${percent}%`;
+      document.getElementById("scratchProgressBar").style.width = `${percent}%`;
+      if (percent >= 55) revealCurrentKeyword();
+    }
+
+    function revealKeywords() {
+      revealCurrentKeyword();
+    }
+
+    function revealCurrentKeyword() {
+      state.currentScratchLocked = true;
+      const canvas = document.getElementById("scratchCanvas");
+      if (canvas) canvas.style.display = "none";
+      const slot = document.getElementById("revealedKeywordSlot");
+      if (slot && state.selectedKeywordCandidate) {
+        slot.classList.add(`rarity-${state.selectedKeywordCandidate.rarity}`);
+      }
+      const btn = document.getElementById("confirmKeywordBtn");
+      if (btn) btn.disabled = false;
+      const bar = document.getElementById("scratchProgressBar");
+      const text = document.getElementById("scratchProgressText");
+      if (bar) bar.style.width = "100%";
+      if (text) text.textContent = "100%";
+      if (state.selectedKeywordCandidate && !state.selectedKeywordCandidate.revealToastShown) {
+        if (state.selectedKeywordCandidate.rarity === "legendary") {
+          toast("传说灵感出现！片场开始发光！");
+        } else if (state.selectedKeywordCandidate.rarity === "epic") {
+          toast("史诗灵感出现！");
+        }
+        state.selectedKeywordCandidate.revealToastShown = true;
+      }
+    }
+
+    function confirmCurrentKeyword() {
+      if (!state.selectedKeywordCandidate) return;
+      const keyword = state.selectedKeywordCandidate;
+      state.currentKeywords.push(keyword);
+      state.usedKeywordTexts.add(keyword.text);
+      if (!state.usedKeywordsByCategory[keyword.category].some(item => item.text === keyword.text)) {
+        state.usedKeywordsByCategory[keyword.category].push({
+          text: keyword.text,
+          category: keyword.category,
+          rarity: keyword.rarity,
+          usedDay: state.day,
+          reused: !!keyword.reused
+        });
+      }
+      state.lastConfirmMessage = getConfirmMessage(keyword.category);
+      if (keyword.reused) {
+        state.lastConfirmMessage += " 旧梗翻红：观众开始怀旧二创。";
+      }
+
+      if (state.currentKeywords.length >= state.keywordOrder.length) {
+        state.selectedKeywordCandidate = null;
+        state.selectedDeckIndex = null;
+        state.currentCategoryDeck = [];
+        state.currentScratchLocked = false;
+        render();
+        return;
+      }
+
+      state.scratchStepIndex += 1;
+      prepareCategoryDeck();
+      render();
+    }
+
+    function getConfirmMessage(category) {
+      const messages = {
+        character: "主角已确定，AI 片场开始搭建。",
+        scene: "场景已确定，镜头开始找位置。",
+        conflict: "冲突已确定，评委开始皱眉。",
+        style: "风格已确定，AI 开始上滤镜。",
+        ending: "结局已确定，可以生成短片了。"
+      };
+      return messages[category];
+    }
+
+    function abandonCurrentCreation() {
+      const abandonedTexts = new Set(state.currentKeywords.map(item => item.text));
+      if (abandonedTexts.size) {
+        state.keywordOrder.forEach(category => {
+          state.usedKeywordsByCategory[category] = state.usedKeywordsByCategory[category].filter(item => {
+            return !(item.usedDay === state.day && abandonedTexts.has(item.text));
+          });
+        });
+        state.usedKeywordTexts = new Set(
+          Object.values(state.usedKeywordsByCategory).flatMap(list => list.map(item => item.text))
+        );
+      }
+      state.selectedCard = null;
+      state.currentKeywords = [];
+      state.scratchStepIndex = 0;
+      state.currentCategoryDeck = [];
+      state.selectedDeckIndex = null;
+      state.selectedKeywordCandidate = null;
+      state.currentScratchLocked = false;
+      state.lastConfirmMessage = "";
+      state.deckNote = "";
+      state.currentDeckAllowsUsed = false;
+      state.currentFilm = null;
+      state.currentScores = null;
+      state.currentRewards = null;
+      state.screen = "daily";
+      state.resumeScreen = "daily";
+      toast("已放弃本次创作，本次刮开的关键词不会保留。");
+      render();
+    }
+
+    function generateFilm() {
+      state.currentFilm = createFilmFromKeywords();
+      state.currentScores = calculateScores();
+      state.currentKeywords.forEach(item => {
+        if (item.rarity === "legendary") state.legendaryFound += 1;
+      });
+      if (state.currentScores.overall > state.bestFilmScore) {
+        state.bestFilmScore = state.currentScores.overall;
+        state.bestFilmTitle = state.currentFilm.title;
+      }
+      state.screen = "film";
+      render();
+    }
+
+    function createFilmFromKeywords() {
+      const kw = Object.fromEntries(state.currentKeywords.map(item => [item.category, item]));
+      const templates = [
+        `《毕业第 ${state.day} 天，我在${kw.scene.text}遇见了${kw.character.text}》`,
+        `《${kw.character.text}在${kw.scene.text}拍出了没人敢想的${kw.style.text}短片》`,
+        `《我用 AI 拍下${kw.conflict.text}，结果${kw.ending.text}》`,
+        `《当${kw.character.text}遇上${kw.conflict.text}，全网开始沉默》`
+      ];
+      const title = pick(templates);
+      const logline = `一部关于${kw.character.text}、${kw.scene.text}和“${kw.conflict.text}”的 ${kw.style.text} AI 短片，最终${kw.ending.text}。`;
+      const storyboard = [
+        `镜头 1：${kw.character.text}拖着行李进入${kw.scene.text}，嘴上说自己只是来试试，手却已经打开了 AI 工具。`,
+        `镜头 2：${kw.conflict.text}突然发生，预算、时间和精神状态同时亮起红灯。`,
+        `镜头 3：${kw.style.text}滤镜覆盖画面，AI 把现实剪成一段看起来很贵的梦。`,
+        `镜头 4：短片发布后${kw.ending.text}，评论区开始用弹幕替导演写续集。`
+      ];
+      return {
+        title,
+        logline,
+        storyboard,
+        comments: sample(audienceComments, 5)
+      };
+    }
+
+    function renderFilm() {
+      const film = state.currentFilm;
+      return `
+        <section class="screen layout">
+          <div class="panel wide-card">
+            <h2 class="film-title">${film.title}</h2>
+            <p class="section-sub">${film.logline}</p>
+            <div class="video-preview">
+              <div class="mini-player">
+                <i class="floating-shape"></i>
+                <i class="floating-shape"></i>
+                <i class="floating-shape"></i>
+                <div class="video-title">AI 正在生成短片预览...</div>
+                ${film.comments.slice(0, 4).map(text => `<span class="danmu">${text}</span>`).join("")}
+                <div class="ai-progress">
+                  <small class="muted">AI 正在生成分镜...</small>
+                  <div class="progress-line"><i></i></div>
+                </div>
+              </div>
+              <div>
+                <h3>4 镜头分镜</h3>
+                <div class="story-list">
+                  ${film.storyboard.map((shot, index) => `
+                    <div class="story-card"><b>${index + 1}</b><span>${shot}</span></div>
+                  `).join("")}
+                </div>
+                <div class="tag-row">
+                  ${state.currentKeywords.map(item => `<span class="badge">${categoryNames[item.category]}：${item.text}</span>`).join("")}
+                </div>
+              </div>
+            </div>
+            <div class="actions">
+              <button class="btn" onclick="showJudges()">交给评委打分</button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function calculateScores() {
+      const totals = {
+        creativity: 0,
+        virality: 0,
+        aiFeeling: 0,
+        coherence: 0,
+        commercial: 0,
+        emotion: 0
+      };
+      state.currentKeywords.forEach(item => {
+        Object.keys(totals).forEach(key => totals[key] += item[key]);
+      });
+      Object.keys(totals).forEach(key => totals[key] = totals[key] / state.currentKeywords.length);
+
+      Object.entries(state.selectedCard.statMods).forEach(([key, value]) => {
+        totals[key] += value;
+      });
+
+      totals.aiFeeling += state.upgrades.equipment * 5;
+      totals.coherence += state.upgrades.equipment * 5;
+      totals.commercial += state.upgrades.branding * 6;
+      totals.virality += state.upgrades.network * 3;
+      totals.emotion += state.upgrades.home * 2;
+
+      if (state.activeItems.trend) totals.virality *= 1.15;
+      if (state.activeItems.clientSmile) totals.commercial *= 1.2;
+      if (state.activeItems.overnight) {
+        totals.coherence *= 1.15;
+        if (Math.random() < 0.24) totals.creativity -= 8;
+      }
+
+      const combo = getComboBonus();
+      Object.entries(combo.mods).forEach(([key, value]) => totals[key] += value);
+
+      Object.keys(totals).forEach(key => totals[key] = clamp(totals[key], 0, 120));
+
+      const rarityBonus = state.currentKeywords.reduce((sum, item) => {
+        return sum + ({ common: 0, rare: 2, epic: 5, legendary: 10 }[item.rarity]);
+      }, 0);
+
+      const raw =
+        totals.creativity * 0.2 +
+        totals.virality * 0.25 +
+        totals.aiFeeling * 0.2 +
+        totals.coherence * 0.15 +
+        totals.commercial * 0.1 +
+        totals.emotion * 0.1 +
+        rarityBonus +
+        rand(-4, 5);
+
+      const overall = Math.round(clamp(raw, 35, 100));
+      const judgeResults = judges.map(judge => ({
+        ...judge,
+        finalScore: Math.round(clamp(judge.score(totals) + rarityBonus * 0.5 + rand(-5, 6), 30, 100)),
+        comment: pick(judge.comments)
+      }));
+
+      state.activeItems.trend = 0;
+      state.activeItems.clientSmile = 0;
+      state.activeItems.overnight = 0;
+      state.activeItems.aiBurst = 0;
+
+      return { attrs: totals, overall, judgeResults, comboTexts: combo.texts, rarityBonus };
+    }
+
+    function getComboBonus() {
+      const texts = [];
+      const mods = { creativity: 0, virality: 0, aiFeeling: 0, coherence: 0, commercial: 0, emotion: 0 };
+      const kw = Object.fromEntries(state.currentKeywords.map(item => [item.category, item]));
+      const allText = state.currentKeywords.map(item => item.text).join(" ");
+
+      if (kw.scene.text.includes("赛博") && (kw.style.text.includes("国风") || kw.style.text.includes("江南"))) {
+        mods.aiFeeling += 10;
+        mods.creativity += 8;
+        texts.push("赛博江南组合：AI 感与创意提升");
+      }
+      if (allText.includes("鹅") && (kw.conflict.rarity !== "common" || kw.ending.rarity !== "common")) {
+        mods.virality += 12;
+        texts.push("鹅系爆梗：传播潜力提升");
+      }
+      if (kw.conflict.rarity === "legendary" && kw.style.text.includes("抽象")) {
+        mods.coherence -= 10;
+        mods.virality += 10;
+        texts.push("抽象过载：更容易出圈，也更难看懂");
+      }
+      if (kw.ending.rarity === "legendary") {
+        mods.virality += 12;
+        mods.commercial += 8;
+        texts.push("传说结局：投资人开始坐直");
+      }
+      if (state.selectedCard.id === "commercial" && kw.ending.commercial > 75) {
+        mods.commercial += 10;
+        texts.push("商业闭环：创作资金奖励提高");
+      }
+      if (state.selectedCard.id === "abstract" && state.currentKeywords.some(item => ["epic", "legendary"].includes(item.rarity))) {
+        mods.virality += 12;
+        mods.coherence -= 5;
+        texts.push("高风险抽象：弹幕会吵，但流量会来");
+      }
+      if (state.currentKeywords.some(item => item.reused)) {
+        mods.virality += 10;
+        mods.commercial += 4;
+        texts.push("旧梗翻红：观众开始怀旧二创");
+      }
+      return { mods, texts };
+    }
+
+    function showJudges() {
+      state.screen = "judges";
+      render();
+    }
+
+    function renderJudgeAvatar(judge) {
+      const fallback = `<div class="judge-avatar">${judge.avatar || "?"}</div>`;
+      if (judge.id === "platform") {
+        return `
+          <div class="judge-portrait judge-platform" aria-label="平台运营评委头像">
+            <svg viewBox="0 0 96 96" role="img">
+              <defs>
+                <linearGradient id="platformFace" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#fff2c9"/>
+                  <stop offset="1" stop-color="#f4b48a"/>
+                </linearGradient>
+              </defs>
+              <rect x="8" y="8" width="80" height="80" rx="22" fill="rgba(8,22,32,.72)"/>
+              <path d="M24 67c5-12 43-12 48 0v12H24z" fill="#22d4b2"/>
+              <circle cx="48" cy="42" r="20" fill="url(#platformFace)"/>
+              <path d="M29 35c7-15 30-17 40-3 0 0-7-3-20-3-12 0-20 6-20 6z" fill="#172437"/>
+              <circle cx="40" cy="43" r="2.4" fill="#162033"/>
+              <circle cx="56" cy="43" r="2.4" fill="#162033"/>
+              <path d="M42 53c4 3 9 3 13 0" stroke="#9d5b46" stroke-width="3" stroke-linecap="round" fill="none"/>
+              <rect x="62" y="24" width="17" height="28" rx="4" fill="#10334a" stroke="#42e8bf" stroke-width="2"/>
+              <path d="M66 44l4-6 4 3 3-8" stroke="#42e8bf" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="23" cy="25" r="3" fill="#42e8bf"/>
+              <circle cx="30" cy="18" r="2" fill="#21d7ff"/>
+              <path d="M20 56h10m-8-7h12" stroke="#42e8bf" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+        `;
+      }
+      if (judge.id === "artist") {
+        return `
+          <div class="judge-portrait judge-artist" aria-label="艺术片导演头像">
+            <svg viewBox="0 0 96 96" role="img">
+              <rect x="8" y="8" width="80" height="80" rx="22" fill="rgba(24,17,42,.74)"/>
+              <path d="M25 68c5-13 42-13 47 0v12H25z" fill="#7d5cff"/>
+              <circle cx="49" cy="43" r="19" fill="#f2c39a"/>
+              <path d="M26 31h47l-5-10H34z" fill="#201629"/>
+              <path d="M32 26h35" stroke="#ffce54" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="41" cy="44" r="6" fill="none" stroke="#211627" stroke-width="3"/>
+              <circle cx="58" cy="44" r="6" fill="none" stroke="#211627" stroke-width="3"/>
+              <path d="M47 44h5" stroke="#211627" stroke-width="3" stroke-linecap="round"/>
+              <path d="M44 54c4 2 8 2 12 0" stroke="#7c4637" stroke-width="3" stroke-linecap="round" fill="none"/>
+              <rect x="61" y="55" width="20" height="15" rx="3" fill="#2a1c39" stroke="#ffce54" stroke-width="2"/>
+              <circle cx="67" cy="62" r="4" fill="#ffce54"/>
+              <path d="M76 59l8-5v17l-8-5z" fill="#ffce54"/>
+              <path d="M18 56h18m-14 6h18" stroke="#c7a6ff" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+          </div>
+        `;
+      }
+      if (judge.id === "investor") {
+        return `
+          <div class="judge-portrait judge-investor" aria-label="投资人头像">
+            <svg viewBox="0 0 96 96" role="img">
+              <rect x="8" y="8" width="80" height="80" rx="22" fill="rgba(38,27,12,.75)"/>
+              <path d="M25 68c4-14 42-14 47 0v12H25z" fill="#2f3b4f"/>
+              <path d="M42 68l6 10 6-10z" fill="#ffce54"/>
+              <circle cx="48" cy="42" r="19" fill="#efbd8f"/>
+              <path d="M31 34c7-14 28-17 37-2-8-1-16-7-23-5-7 2-10 7-14 7z" fill="#4a2d18"/>
+              <circle cx="40" cy="43" r="2.3" fill="#24180f"/>
+              <circle cx="56" cy="43" r="2.3" fill="#24180f"/>
+              <path d="M42 53c4 3 9 3 13 0" stroke="#7d4630" stroke-width="3" stroke-linecap="round" fill="none"/>
+              <rect x="61" y="21" width="20" height="26" rx="4" fill="#fff4cf" stroke="#ffce54" stroke-width="2"/>
+              <path d="M66 29h10M66 35h8M66 41h6" stroke="#7a5118" stroke-width="2" stroke-linecap="round"/>
+              <rect x="18" y="57" width="22" height="16" rx="4" fill="#7a4a1b" stroke="#ffce54" stroke-width="2"/>
+              <path d="M24 57v-4h10v4" stroke="#ffce54" stroke-width="2" fill="none"/>
+              <path d="M76 58c5 5 0 12-6 8" stroke="#ffce54" stroke-width="3" stroke-linecap="round" fill="none"/>
+            </svg>
+          </div>
+        `;
+      }
+      return fallback;
+    }
+
+    function renderJudges() {
+      const scores = state.currentScores;
+      return `
+        <section class="screen layout">
+          <div class="panel wide-card">
+            <h2 class="section-title">评委看片会</h2>
+            <p class="section-sub">${term("总分", "overallScore")}会影响${term("创作资金", "funding")}、${term("粉丝", "followers")}、${term("影响力", "influence")}和${term("口碑", "reputation")}。评委已喝完咖啡，正在努力理解你的艺术野心。</p>
+            <div class="story-card" style="margin-bottom:16px">
+              <b>?</b>
+              <span>评分说明：综合分由${term("创意", "creativity")}、${term("传播", "virality")}、${term("AI感", "aiFeeling")}、${term("连贯度", "coherence")}、${term("商业性", "commercial")}、${term("情绪", "emotion")}、${term("稀有度", "rarity")}和${term("特殊组合", "combo")}共同决定。</span>
+            </div>
+            <p class="score-big" data-score="${scores.overall}">0</p>
+            <div class="tag-row">
+              ${scores.comboTexts.length ? scores.comboTexts.map(text => `<span class="badge">${term("特殊组合", "combo")}：${text}</span>`).join("") : `<span class="badge">本轮没有${term("特殊组合", "combo")}，但完成度在线</span>`}
+            </div>
+            <div class="grid three" style="margin-top:18px">
+              ${scores.judgeResults.map(judge => `
+                <article class="judge-card">
+                  ${renderJudgeAvatar(judge)}
+                  <h3>${term(judge.name, judge.id === "platform" ? "platformJudge" : judge.id === "artist" ? "artistJudge" : "investorJudge")}</h3>
+                  <p class="muted">${judge.focus}</p>
+                  <h3><span class="count" data-score="${judge.finalScore}">0</span> / 100</h3>
+                  <p>“${judge.comment}”</p>
+                </article>
+              `).join("")}
+            </div>
+            <div class="actions">
+              <button class="btn" onclick="calculateRewards()">查看本轮收获</button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function animateScores() {
+      document.querySelectorAll("[data-score]").forEach(el => {
+        const target = Number(el.dataset.score);
+        let current = 0;
+        const step = Math.max(1, Math.ceil(target / 26));
+        const timer = setInterval(() => {
+          current = Math.min(target, current + step);
+          el.textContent = current;
+          if (current >= target) clearInterval(timer);
+        }, 22);
+      });
+    }
+
+    function calculateRewards() {
+      const score = state.currentScores.overall;
+      const judgeScores = Object.fromEntries(
+        state.currentScores.judgeResults.map(judge => [judge.id, judge.finalScore])
+      );
+      const platformJudgeScore = judgeScores.platform || score;
+      const artistJudgeScore = judgeScores.artist || score;
+      const investorJudgeScore = judgeScores.investor || score;
+      const rarityBonus = state.currentScores.rarityBonus * 18;
+      const commercialBonus = Math.round(state.currentScores.attrs.commercial * (state.selectedCard.id === "commercial" ? 4 : 2));
+      const viralityBonus = Math.round(state.currentScores.attrs.virality * 30);
+      const homeNetworkBonus = state.upgrades.home * 120 + state.upgrades.network * 180;
+      const coherenceBonus = Math.floor(state.currentScores.attrs.coherence / 45);
+      const comboBonus = state.currentScores.comboTexts.length * 2;
+      const legendaryBonus = state.currentKeywords.filter(item => item.rarity === "legendary").length * 2;
+      const brandingBonus = state.upgrades.branding * 60;
+      const networkInfluenceBonus = state.upgrades.network * 2;
+      const viralityInfluenceBonus = Math.floor(state.currentScores.attrs.virality / 35);
+
+      let fundingGain = Math.round(score * 6 + investorJudgeScore * 6 + rarityBonus + commercialBonus + brandingBonus);
+      let followersGain = Math.round(score * 60 + platformJudgeScore * 90 + viralityBonus + homeNetworkBonus);
+      let reputationGain = Math.floor(score / 18) + Math.floor(artistJudgeScore / 18) + coherenceBonus;
+      let influenceGain = Math.floor(score / 12) + comboBonus + networkInfluenceBonus + legendaryBonus + viralityInfluenceBonus;
+      const opportunityResult = applyDailyOpportunityRewardBonus({
+        fundingGain,
+        followersGain,
+        reputationGain,
+        influenceGain
+      });
+      fundingGain = opportunityResult.fundingGain;
+      followersGain = opportunityResult.followersGain;
+      reputationGain = opportunityResult.reputationGain;
+      influenceGain = opportunityResult.influenceGain;
+
+      state.currentRewards = {
+        fundingGain,
+        followersGain,
+        influenceGain,
+        reputationGain,
+        opportunityText: opportunityResult.text,
+        explanations: {
+          funding: `投资人认可度 ${investorJudgeScore} 分带来了更多创作资金，商业潜力和形象包装也参与加成。`,
+          followers: `平台运营分 ${platformJudgeScore} 分带来了更多粉丝增长，传播属性继续放大声量。`,
+          reputation: `艺术导演分 ${artistJudgeScore} 分提升了口碑，故事连贯度让作品更站得住。`,
+          influence: `总分、组合效果、传播潜力、社交资源和传说关键词共同提升了影响力。`
+        }
+      };
+      state.funding += fundingGain;
+      state.followers += followersGain;
+      state.influence += influenceGain;
+      state.reputation += reputationGain;
+      state.totalEarnedFunding += fundingGain;
+      state.screen = "reward";
+      render();
+    }
+
+    function applyDailyOpportunityRewardBonus(rewards) {
+      const opp = state.dailyOpportunity;
+      const attrs = state.currentScores.attrs;
+      let text = opp ? `今日机会未完全触发：你的作品方向和「${opp.name}」不够匹配。` : "";
+      const result = { ...rewards };
+      const hasEpicOrLegendary = state.currentKeywords.some(item => ["epic", "legendary"].includes(item.rarity));
+      const hasLegendary = state.currentKeywords.some(item => item.rarity === "legendary");
+      if (!opp) return { ...result, text };
+
+      if (opp.id === "platformDrama" && attrs.virality >= 70) {
+        result.followersGain = Math.round(result.followersGain * (attrs.virality >= 85 ? 1.35 : 1.2));
+        text = `今日机会加成：${opp.name}让高传播作品获得更多粉丝。`;
+      } else if (opp.id === "investorPitch" && attrs.commercial >= 70) {
+        result.fundingGain = Math.round(result.fundingGain * (attrs.commercial >= 85 ? 1.35 : 1.2));
+        text = `今日机会加成：${opp.name}让高商业性作品获得更多创作资金。`;
+      } else if (opp.id === "aiFilmFestival" && attrs.aiFeeling >= 70 && attrs.creativity >= 65) {
+        const strong = attrs.aiFeeling >= 85 && attrs.creativity >= 85;
+        result.reputationGain += strong ? 4 : 2;
+        result.influenceGain += strong ? 5 : 3;
+        text = `今日机会加成：${opp.name}认可了作品的 AI 感和创意表达。`;
+      } else if (opp.id === "emotionalShort" && attrs.emotion >= 70 && attrs.coherence >= 60) {
+        result.reputationGain += attrs.emotion >= 80 && attrs.coherence >= 80 ? 5 : 3;
+        text = `今日机会加成：${opp.name}让情绪和连贯度转化成口碑。`;
+      } else if (opp.id === "abstractNight" && (state.currentScores.comboTexts.length > 0 || hasEpicOrLegendary)) {
+        result.influenceGain += hasLegendary ? 6 : 4;
+        result.followersGain = Math.round(result.followersGain * (hasLegendary ? 1.25 : 1.15));
+        text = `今日机会加成：${opp.name}放大了稀有灵感和特殊组合的传播。`;
+      }
+      return { ...result, text };
+    }
+
+    function renderReward() {
+      const r = state.currentRewards;
+      return `
+        <section class="screen layout">
+          <div class="panel wide-card">
+            <h2 class="section-title">本轮获得</h2>
+            <p class="section-sub">作品上线后，三位评委的态度开始转化成真实资源：谁认可你，谁就给你的创作生涯多推一把。</p>
+            <div class="tag-row" style="margin-bottom:16px">
+              <span class="badge">${term("投资人", "investorJudge")}评分会影响${term("创作资金", "funding")}</span>
+              <span class="badge">${term("平台运营评委", "platformJudge")}评分会影响${term("粉丝", "followers")}增长</span>
+              <span class="badge">${term("艺术片导演", "artistJudge")}评分会影响${term("口碑", "reputation")}</span>
+              <span class="badge">${term("特殊组合", "combo")}会影响${term("影响力", "influence")}和${term("传播", "virality")}表现</span>
+            </div>
+            ${r.opportunityText ? `<p class="confirm-note">${r.opportunityText}</p>` : ""}
+            <div class="reward-list">
+              <div class="reward">💵 ${term("创作资金", "funding")}<strong>+ ${formatNum(r.fundingGain)}</strong><small>${r.explanations.funding}</small></div>
+              <div class="reward">👥 ${term("粉丝", "followers")}<strong>+ ${formatNum(r.followersGain)}</strong><small>${r.explanations.followers}</small></div>
+              <div class="reward">🔥 ${term("影响力", "influence")}<strong>+ ${formatNum(r.influenceGain)}</strong><small>${r.explanations.influence}</small></div>
+              <div class="reward">⭐ ${term("口碑", "reputation")}<strong>+ ${formatNum(r.reputationGain)}</strong><small>${r.explanations.reputation}</small></div>
+            </div>
+            ${renderStats()}
+            <div class="actions">
+              <button class="btn" onclick="${state.day >= MAX_DAYS ? "showFinalEnding()" : "showShop()"}">${state.day >= MAX_DAYS ? "查看最终结局" : "去升级装备"}</button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function showShop() {
+      state.dailyPurchasedItems = new Set();
+      state.screen = "shop";
+      render();
+    }
+
+    function getUpgradeCost(id) {
+      const def = upgradeDefs[id];
+      const level = state.upgrades[id];
+      return def.baseCost + level * 320 + Math.floor(level * level * 140);
+    }
+
+    function renderShop() {
+      return `
+        <section class="screen layout">
+          <div class="panel wide-card">
+            <div class="shop-head">
+              <div>
+                <h2 class="section-title">升级与道具</h2>
+                <p class="section-sub">当前${term("创作资金", "funding")}：<strong>${formatNum(state.funding)}</strong>。理性消费，感性爆款。</p>
+              </div>
+              <button class="btn" onclick="nextDay()">进入下一天</button>
+            </div>
+            <div class="shop-advice">
+              <h3>购买建议</h3>
+              ${getShopRecommendation().map(text => `<p>${text}</p>`).join("")}
+            </div>
+            <h3>永久升级</h3>
+            <div class="grid two">
+              ${Object.entries(upgradeDefs).map(([id, def]) => {
+                const level = state.upgrades[id];
+                const maxed = level >= def.levels.length - 1;
+                const cost = getUpgradeCost(id);
+                return `
+                  <article class="shop-card">
+                    <h3>${def.icon} ${def.name}</h3>
+                    <p class="muted">当前：${def.levels[level]}</p>
+                    <p>${def.effect}</p>
+                    <div class="tag-row">
+                      <span class="badge">${maxed ? "已满级" : `下级：${def.levels[level + 1]}`}</span>
+                      <span class="badge">费用：${maxed ? "无" : formatNum(cost)}</span>
+                    </div>
+                    <button class="btn" onclick="buyUpgrade('${id}')" ${maxed || state.funding < cost ? "disabled" : ""}>${maxed ? "已满级" : "升级"}</button>
+                  </article>
+                `;
+              }).join("")}
+            </div>
+            <h3 style="margin-top:24px">一次性道具</h3>
+            <div class="grid three">
+              ${itemDefs.map(item => {
+                const status = getItemPurchaseStatus(item);
+                return `
+                  <article class="shop-card ${status.disabled ? "disabled" : ""}">
+                    <h3>${item.icon} ${item.name}</h3>
+                    <p>${item.effect}</p>
+                    <div class="tag-row">
+                      <span class="badge">费用：${formatNum(item.cost)}</span>
+                      <span class="badge">${item.itemType === "function" ? term("功能道具", "functionItem") : term("属性提升", "statItem")}</span>
+                      <span class="badge">本局剩余：${status.remaining} / ${item.maxPurchases}</span>
+                      ${status.boughtToday ? `<span class="badge">${term("今日已购买", "boughtToday")}</span>` : ""}
+                      ${status.soldOut ? `<span class="badge">${term("次数已用完", "soldOut")}</span>` : ""}
+                    </div>
+                    <button class="btn secondary" onclick="buyItem('${item.id}')" ${status.disabled ? "disabled" : ""}>${status.label}</button>
+                  </article>
+                `;
+              }).join("")}
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function getShopRecommendation() {
+      const advice = [];
+      const usedCount = state.usedKeywordTexts.size;
+      const functionalBuys = (state.itemPurchaseCounts.fate || 0) + (state.itemPurchaseCounts.recycleUsed || 0);
+      if (state.funding < 450) {
+        advice.push("创作资金不多，建议优先购买便宜道具，或暂时攒钱升级。");
+      }
+      if (state.followers < state.day * 9000) {
+        advice.push("粉丝增长偏慢，可以考虑购买热搜嗅觉，或升级社交资源。");
+      }
+      if (state.reputation < state.day * 6) {
+        advice.push("口碑偏低，可以考虑升级设备，或使用熬夜剪片提高连贯度。");
+      }
+      if (usedCount >= 10) {
+        advice.push("关键词牌库已经消耗不少，后续可以用我要改命增加选择空间。");
+      }
+      if (usedCount >= 8 && !state.recycleUsedUnlocked && (state.itemPurchaseCounts.recycleUsed || 0) < 2) {
+        advice.push("你已经积累了一些旧关键词，可以考虑购买旧梗翻红，让旧梗重新回到牌库。");
+      }
+      if (state.funding > 2500) {
+        advice.push("资金充足，建议优先考虑永久升级，而不是只买一次性道具。");
+      }
+      if (functionalBuys === 0) {
+        advice.push("功能道具不会自动生效，会进入道具槽，适合在关键牌堆时手动使用。");
+      }
+      return advice.slice(0, 2);
+    }
+
+    function getItemPurchaseStatus(item) {
+      const boughtCount = state.itemPurchaseCounts[item.id] || 0;
+      const remaining = Math.max(0, item.maxPurchases - boughtCount);
+      const boughtToday = state.dailyPurchasedItems.has(item.id);
+      if (remaining <= 0) return { disabled: true, label: "次数已用完", remaining, boughtToday, soldOut: true };
+      if (boughtToday) return { disabled: true, label: "今日已购买", remaining, boughtToday, soldOut: false };
+      if (state.funding < item.cost) return { disabled: true, label: "资金不足", remaining, boughtToday, soldOut: false };
+      return { disabled: false, label: "购买", remaining, boughtToday, soldOut: false };
+    }
+
+    function buyUpgrade(id) {
+      const def = upgradeDefs[id];
+      if (state.upgrades[id] >= def.levels.length - 1) return;
+      const cost = getUpgradeCost(id);
+      if (state.funding < cost) return;
+      state.funding -= cost;
+      state.upgrades[id] += 1;
+      toast(`${def.name}升级成功：${def.levels[state.upgrades[id]]}`);
+      render();
+    }
+
+    function addActiveItem(id, amount) {
+      state.activeItems[id] = (state.activeItems[id] || 0) + amount;
+    }
+
+    function buyItem(id) {
+      const item = itemDefs.find(entry => entry.id === id);
+      if (!item) return;
+      const status = getItemPurchaseStatus(item);
+      if (status.disabled) {
+        toast(status.label);
+        return;
+      }
+      state.funding -= item.cost;
+      state.itemPurchaseCounts[item.id] = (state.itemPurchaseCounts[item.id] || 0) + 1;
+      state.dailyPurchasedItems.add(item.id);
+      if (item.itemType === "function") {
+        state.itemInventory[item.id] = (state.itemInventory[item.id] || 0) + 1;
+      } else if (item.apply) {
+        item.apply();
+      }
+      state.ownedItems.push(item.name);
+      toast(`已购买：${item.name}`);
+      render();
+    }
+
+    function nextDay() {
+      state.day += 1;
+      const baseFollowers = state.upgrades.home * 80 + state.upgrades.network * 40;
+      const baseInfluence = state.upgrades.home > 1 ? 1 : 0;
+      state.followers += baseFollowers;
+      state.influence += baseInfluence;
+      state.selectedCard = null;
+      state.currentKeywords = [];
+      state.scratchStepIndex = 0;
+      state.currentCategoryDeck = [];
+      state.selectedDeckIndex = null;
+      state.selectedKeywordCandidate = null;
+      state.lastConfirmMessage = "";
+      state.deckNote = "";
+      state.currentDeckAllowsUsed = false;
+      state.currentScratchLocked = false;
+      state.currentFilm = null;
+      state.currentScores = null;
+      state.currentRewards = null;
+      generateDailyOpportunity();
+      state.screen = "daily";
+      state.resumeScreen = "daily";
+      render();
+    }
+
+    function showFinalEnding() {
+      state.screen = "final";
+      render();
+    }
+
+    function calculateFinalCareerScoreBreakdown() {
+      const upgradeTotal = Object.values(state.upgrades).reduce((sum, value) => sum + value, 0);
+      const breakdown = {
+        fundingPart: Math.round(Math.min(1400, Math.sqrt(state.totalEarnedFunding) * 18)),
+        followersPart: Math.round(Math.min(2600, Math.sqrt(state.followers) * 13)),
+        influencePart: Math.round(state.influence * 42),
+        reputationPart: Math.round(state.reputation * 58),
+        bestFilmScorePart: Math.round(state.bestFilmScore * 28),
+        legendaryPart: Math.round(state.legendaryFound * 260),
+        upgradePart: Math.round(upgradeTotal * 180)
+      };
+      breakdown.total = Object.values(breakdown).reduce((sum, value) => sum + value, 0);
+      return breakdown;
+    }
+
+    function getFinalCareerInterpretation(breakdown) {
+      if (breakdown.followersPart > breakdown.reputationPart * 1.4) {
+        return "你的传播很强，但口碑还不够稳定，更像流量型创作者。";
+      }
+      if (breakdown.reputationPart > breakdown.followersPart * 1.4) {
+        return "你的作品质量不错，但还需要更强的传播爆点。";
+      }
+      if (breakdown.legendaryPart >= 520) {
+        return "传说关键词让你的作品拥有更强的命运感和记忆点。";
+      }
+      if (breakdown.upgradePart >= 720) {
+        return "持续升级让你的创业基础更加稳定。";
+      }
+      return "这些因素共同决定你的最终身份。";
+    }
+
+    function getNextRunSuggestion(breakdown) {
+      const suggestions = [];
+      if (breakdown.total >= 9800 || state.bestFilmScore >= 92) {
+        suggestions.push("你已经打出了很强的路线。下一局可以尝试不同风格，例如从商业稳定转向抽象爆梗。");
+      }
+      if (breakdown.followersPart < 1200) {
+        suggestions.push("下一局可以多关注传播属性，选择商业灵感卡、情绪灵感卡，或在平台短剧赛道中冲粉丝。");
+      }
+      if (breakdown.reputationPart < 1200) {
+        suggestions.push("下一局可以提高连贯度、创意和情绪，尝试艺术灵感卡或情绪灵感卡来提升口碑。");
+      }
+      if (breakdown.fundingPart < 700) {
+        suggestions.push("下一局可以在投资人路演中选择商业路线，或者更早升级形象包装和社交资源。");
+      }
+      if (state.legendaryFound === 0) {
+        suggestions.push("下一局可以尝试抽象灵感卡或 AI 灵感暴击，争取刮出史诗/传说关键词。");
+      }
+      if (breakdown.upgradePart < 540) {
+        suggestions.push("下一局可以少买一次性道具，多投资永久升级，让后期收益更稳定。");
+      }
+      if (!suggestions.length) {
+        suggestions.push("下一局可以根据每日机会改变路线，比较稳定收益、口碑路线和高风险爆款的不同结局。");
+      }
+      return suggestions.slice(0, 2);
+    }
+
+    function getFinalScore() {
+      return calculateFinalCareerScoreBreakdown().total;
+    }
+
+    function renderFinalEnding() {
+      const scoreBreakdown = calculateFinalCareerScoreBreakdown();
+      const finalScore = scoreBreakdown.total;
+      const ending = endings.reduce((best, item) => finalScore >= item.min ? item : best, endings[0]);
+      const nextRunSuggestions = getNextRunSuggestion(scoreBreakdown);
+      return `
+        <section class="screen">
+          <div class="panel final-poster">
+            <h2 class="section-title">刮出爆款导演</h2>
+            <p class="subtitle">5 天 AI 短片生涯总结</p>
+            <div class="identity">${ending.title}</div>
+            <p class="section-sub">${ending.text}</p>
+            <div class="stats-grid">
+              <div class="stat"><span>最佳作品</span><strong style="font-size:18px">${state.bestFilmTitle}</strong></div>
+              <div class="stat"><span>${term("最佳作品分", "bestFilmScore")}</span><strong>${state.bestFilmScore}</strong></div>
+              <div class="stat"><span>总${term("粉丝", "followers")}</span><strong>${formatNum(state.followers)}</strong></div>
+              <div class="stat"><span>最终${term("影响力", "influence")}</span><strong>${formatNum(state.influence)}</strong></div>
+            </div>
+            <div class="stats-grid">
+              <div class="stat"><span>累计${term("创作资金", "funding")}</span><strong>${formatNum(state.totalEarnedFunding)}</strong></div>
+              <div class="stat"><span>${term("传说关键词", "legendaryCount")}</span><strong>${state.legendaryFound}</strong></div>
+              <div class="stat"><span>${term("口碑", "reputation")}</span><strong>${formatNum(state.reputation)}</strong></div>
+              <div class="stat"><span>生涯评分</span><strong>${formatNum(finalScore)}</strong></div>
+            </div>
+            <h3>为什么得到这个结局？</h3>
+            <p class="section-sub">${getFinalCareerInterpretation(scoreBreakdown)}</p>
+            <div class="score-breakdown">
+              <div class="breakdown-row"><span>${term("最佳作品分", "bestFilmScore")}</span><strong>${formatNum(scoreBreakdown.bestFilmScorePart)}</strong></div>
+              <div class="breakdown-row"><span>${term("粉丝", "followers")}贡献</span><strong>${formatNum(scoreBreakdown.followersPart)}</strong></div>
+              <div class="breakdown-row"><span>${term("影响力", "influence")}贡献</span><strong>${formatNum(scoreBreakdown.influencePart)}</strong></div>
+              <div class="breakdown-row"><span>${term("口碑", "reputation")}贡献</span><strong>${formatNum(scoreBreakdown.reputationPart)}</strong></div>
+              <div class="breakdown-row"><span>累计${term("创作资金", "funding")}贡献</span><strong>${formatNum(scoreBreakdown.fundingPart)}</strong></div>
+              <div class="breakdown-row"><span>${term("传说关键词", "legendaryCount")}贡献</span><strong>${formatNum(scoreBreakdown.legendaryPart)}</strong></div>
+              <div class="breakdown-row"><span>升级贡献</span><strong>${formatNum(scoreBreakdown.upgradePart)}</strong></div>
+              <div class="breakdown-row"><span>${term("总分", "overallScore")}</span><strong>${formatNum(finalScore)}</strong></div>
+            </div>
+            <div class="opportunity-panel" style="text-align:left">
+              <h3>下一局建议</h3>
+              ${nextRunSuggestions.map(text => `<p>${text}</p>`).join("")}
+            </div>
+            <div class="actions" style="justify-content:center">
+              <button class="btn" onclick="resetGame()">重新开始</button>
+              <button class="btn secondary" onclick="openDesignModal()">查看设计说明</button>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+
+    function resetGame(shouldRender = true) {
+      state.screen = "start";
+      state.day = 1;
+      state.funding = 300;
+      state.followers = 0;
+      state.influence = 0;
+      state.reputation = 0;
+      state.bestFilmScore = 0;
+      state.totalEarnedFunding = 0;
+      state.legendaryFound = 0;
+      state.ownedItems = [];
+      state.activeItems = {};
+      state.itemPurchaseCounts = createEmptyItemPurchaseCounts();
+      state.dailyPurchasedItems = new Set();
+      state.itemInventory = { fate: 0, recycleUsed: 0 };
+      state.recycleUsedUnlocked = false;
+      state.upgrades = { home: 0, equipment: 0, branding: 0, network: 0 };
+      state.selectedCard = null;
+      state.availableCards = [];
+      state.currentKeywords = [];
+      state.scratchStepIndex = 0;
+      state.currentCategoryDeck = [];
+      state.selectedDeckIndex = null;
+      state.selectedKeywordCandidate = null;
+      state.currentScratchLocked = false;
+      state.usedKeywordTexts = new Set();
+      state.usedKeywordsByCategory = createEmptyUsedKeywords();
+      state.lastConfirmMessage = "";
+      state.deckNote = "";
+      state.currentDeckAllowsUsed = false;
+      state.dailyOpportunity = null;
+      state.currentFilm = null;
+      state.currentScores = null;
+      state.currentRewards = null;
+      state.bestFilmTitle = "还没开机的毕业作品";
+      state.resumeScreen = "daily";
+      if (shouldRender) render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
