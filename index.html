@@ -141,6 +141,12 @@
       box-shadow: 0 12px 28px rgba(255, 206, 84, 0.22);
     }
 
+    .btn.danger {
+      background: linear-gradient(135deg, #ff5f73, #ff9b7a);
+      color: #fff;
+      box-shadow: 0 12px 28px rgba(255, 95, 115, 0.24);
+    }
+
     .btn:disabled {
       cursor: not-allowed;
       opacity: 0.45;
@@ -1316,7 +1322,7 @@
         <strong>刮出爆款导演</strong>
         <span>Scratch Your Way to a Viral AI Film</span>
       </div>
-      <div class="actions" style="margin-top:0">
+      <div class="actions" id="topbarActions" style="margin-top:0">
         <button class="btn secondary" onclick="openGuide()">AI 创作手册</button>
         <button class="btn secondary" onclick="openDesignModal()">设计说明</button>
       </div>
@@ -1353,6 +1359,18 @@
   </dialog>
   <dialog id="guideModal">
     <div class="modal-body" id="guideBody"></div>
+  </dialog>
+  <dialog id="abandonModal">
+    <div class="modal-body">
+      <h2>要结束当前创作吗？</h2>
+      <p class="section-sub">返回主菜单会保留当前进度，稍后可以继续。重新开始今天会保留前几天的进度，但撤回今天已经刮出的关键词和作品结果。全部重置会清空本局所有进度。</p>
+      <div class="actions">
+        <button class="btn" onclick="closeAbandonModal()">继续创作</button>
+        <button class="btn secondary" onclick="returnToMainMenu()">返回主菜单（可继续）</button>
+        <button class="btn warn" onclick="restartCurrentDay()">重新开始今天</button>
+        <button class="btn danger" onclick="fullResetToMainMenu()">全部重置</button>
+      </div>
+    </div>
   </dialog>
   <div class="toast" id="toast"></div>
 
@@ -1418,7 +1436,8 @@
       currentScores: null,
       currentRewards: null,
       bestFilmTitle: "还没开机的毕业作品",
-      resumeScreen: "daily"
+      resumeScreen: "daily",
+      dayStartSnapshot: null
     };
 
     function k(text, rarity, stats) {
@@ -1772,7 +1791,7 @@
         name: "平台短剧赛道",
         icon: "📱",
         desc: "平台正在扶持高传播短剧。传播越高，粉丝奖励越明显。",
-        hint: "推荐：商业灵感卡 / 情绪灵感卡 / 抽象灵感卡",
+        hint: "推荐：商业路线 / 情绪共鸣 / 抽象爆梗",
         rewardFocus: "粉丝增长",
         scoreHint: "传播",
         effectText: "如果作品传播属性较高，粉丝奖励提高。"
@@ -1782,7 +1801,7 @@
         name: "投资人路演",
         icon: "💼",
         desc: "投资人今天会重点看商业潜力和系列化可能。",
-        hint: "推荐：商业灵感卡 / 科幻灵感卡",
+        hint: "推荐：商业路线 / AI 概念流",
         rewardFocus: "创作资金",
         scoreHint: "商业性",
         effectText: "如果作品商业性较高，创作资金奖励提高。"
@@ -1792,7 +1811,7 @@
         name: "AI 影像节",
         icon: "🤖",
         desc: "影像节评委更关注 AI 感、创意和概念表达。",
-        hint: "推荐：科幻灵感卡 / 艺术灵感卡",
+        hint: "推荐：AI 概念流 / 艺术表达",
         rewardFocus: "口碑 / 影响力",
         scoreHint: "AI感 / 创意",
         effectText: "如果作品 AI感和创意较高，口碑与影响力提高。"
@@ -1802,7 +1821,7 @@
         name: "情绪短片挑战",
         icon: "💗",
         desc: "观众今天更容易被真实情绪打动。",
-        hint: "推荐：情绪灵感卡 / 艺术灵感卡",
+        hint: "推荐：情绪共鸣 / 艺术表达",
         rewardFocus: "口碑",
         scoreHint: "情绪 / 连贯度",
         effectText: "如果作品情绪和连贯度较高，口碑提高。"
@@ -1812,7 +1831,7 @@
         name: "抽象爆梗夜",
         icon: "🌀",
         desc: "今晚大家想看点离谱的。高风险作品可能获得额外传播。",
-        hint: "推荐：抽象灵感卡",
+        hint: "推荐：抽象爆梗",
         rewardFocus: "影响力",
         scoreHint: "传播 / 稀有度 / 特殊组合",
         effectText: "如果作品触发特殊组合或稀有关键词，影响力提高。"
@@ -1860,6 +1879,7 @@
       boughtToday: "今日已购买表示本次商店阶段已经买过这张道具卡，下一次商店才可再次购买。",
       soldOut: "次数已用完表示这张道具卡已达到本局购买上限。",
       dailyInspirationCard: "灵感卡决定今天的创作方向。它会影响关键词稀有度概率，以及短片最终的评分倾向。",
+      creativeDirection: "创作方向决定今天作品更偏向哪种路线，例如商业、艺术、抽象、AI概念或情绪共鸣。它会影响关键词稀有度概率和最终评分倾向。",
       rarityShift: "稀有度概率变化会影响你更容易刮到普通、稀有、史诗还是传说关键词。",
       statTendency: "属性倾向会影响作品最终的评分走向，比如更偏传播、商业、创意、AI感或情绪。",
       tradeoff: "取舍意味着一种优势通常伴随着一种代价，例如更高传播可能换来更低连贯度，或更高创意换来更低商业性。",
@@ -1956,6 +1976,40 @@
       }[card.id] || "灵感路线";
     }
 
+    function getCardRouteName(card) {
+      return {
+        commercial: "商业路线",
+        art: "艺术表达",
+        abstract: "抽象爆梗",
+        scifi: "AI 概念流",
+        emotion: "情绪共鸣"
+      }[card.id] || card.name;
+    }
+
+    function getCardRouteSubtitle(card) {
+      return {
+        commercial: "稳定赚钱",
+        art: "口碑路线",
+        abstract: "高风险高回报",
+        scifi: "强化 AI 感",
+        emotion: "稳定口碑"
+      }[card.id] || getCardArchetype(card);
+    }
+
+    function getOriginalCardName(card) {
+      return `原「${card.name}」`;
+    }
+
+    function getCardRouteDescription(card) {
+      return {
+        commercial: "甲方爱看，平台也爱推。适合想稳定获得资金和粉丝的创作路线。",
+        art: "更强调影像气质、创意和表达。适合想把作品做出记忆点和口碑的路线。",
+        abstract: "更容易赌出离谱爆点和稀有关键词，但作品也更可能失控。",
+        scifi: "强化 AI 感、概念感和未来感，适合想冲 AI 影像节或技术感作品的路线。",
+        emotion: "让故事更完整、更容易被看懂，也更适合积累稳定口碑。"
+      }[card.id] || card.desc;
+    }
+
     function getCardTradeoffText(card) {
       return {
         commercial: "更稳，更容易赚钱，但作品可能不够惊艳。",
@@ -1997,13 +2051,13 @@
         abstractNight: ["abstract"]
       };
       if ((goodMatches[dailyOpportunity.id] || []).includes(card.id)) {
-        if (dailyOpportunity.id === "platformDrama") return `今天的「${dailyOpportunity.name}」更偏好高传播作品，这张卡更容易帮助你涨粉。`;
-        if (dailyOpportunity.id === "investorPitch") return `今天的「${dailyOpportunity.name}」更看重商业潜力，这张卡与资金目标较匹配。`;
-        if (dailyOpportunity.id === "aiFilmFestival") return `今天的「${dailyOpportunity.name}」更看重 AI感和创意，这张卡与今日机会较匹配。`;
-        if (dailyOpportunity.id === "emotionalShort") return `今天的「${dailyOpportunity.name}」更吃情绪和连贯度，这张卡更容易拿口碑。`;
-        if (dailyOpportunity.id === "abstractNight") return `今天的「${dailyOpportunity.name}」鼓励离谱和爆梗，这张卡正适合赌高风险高回报。`;
+        if (dailyOpportunity.id === "platformDrama") return `今天的「${dailyOpportunity.name}」更偏好高传播作品，这个方向更容易帮助你涨粉。`;
+        if (dailyOpportunity.id === "investorPitch") return `今天的「${dailyOpportunity.name}」更看重商业潜力，这个方向与资金目标较匹配。`;
+        if (dailyOpportunity.id === "aiFilmFestival") return `今天的「${dailyOpportunity.name}」更看重 AI感和创意，这个方向与今日机会较匹配。`;
+        if (dailyOpportunity.id === "emotionalShort") return `今天的「${dailyOpportunity.name}」更吃情绪和连贯度，这个方向更容易拿口碑。`;
+        if (dailyOpportunity.id === "abstractNight") return `今天的「${dailyOpportunity.name}」鼓励离谱和爆梗，这个方向正适合赌高风险高回报。`;
       }
-      return `今天的机会与这张卡不完全匹配，但如果你想走「${getCardArchetype(card)}」，仍然可以尝试。`;
+      return `今天的机会与这个方向不完全匹配，但如果你想走「${getCardRouteSubtitle(card)}」，仍然可以尝试。`;
     }
 
     function renderProbabilityEffects(card) {
@@ -2044,6 +2098,113 @@
       document.getElementById("designModal").close();
     }
 
+    function openAbandonModal() {
+      document.getElementById("abandonModal").showModal();
+    }
+
+    function closeAbandonModal() {
+      const modal = document.getElementById("abandonModal");
+      if (modal.open) modal.close();
+    }
+
+    function clonePlain(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function saveDayStartSnapshot() {
+      state.dayStartSnapshot = {
+        day: state.day,
+        funding: state.funding,
+        followers: state.followers,
+        influence: state.influence,
+        reputation: state.reputation,
+        bestFilmScore: state.bestFilmScore,
+        totalEarnedFunding: state.totalEarnedFunding,
+        legendaryFound: state.legendaryFound,
+        ownedItems: [...state.ownedItems],
+        activeItems: clonePlain(state.activeItems),
+        itemPurchaseCounts: clonePlain(state.itemPurchaseCounts),
+        dailyPurchasedItems: [...state.dailyPurchasedItems],
+        itemInventory: clonePlain(state.itemInventory),
+        recycleUsedUnlocked: state.recycleUsedUnlocked,
+        upgrades: clonePlain(state.upgrades),
+        usedKeywordTexts: [...state.usedKeywordTexts],
+        usedKeywordsByCategory: clonePlain(state.usedKeywordsByCategory),
+        bestFilmTitle: state.bestFilmTitle,
+        dailyOpportunity: clonePlain(state.dailyOpportunity)
+      };
+    }
+
+    function restoreDayStartSnapshot() {
+      const snapshot = state.dayStartSnapshot;
+      state.day = snapshot.day;
+      state.funding = snapshot.funding;
+      state.followers = snapshot.followers;
+      state.influence = snapshot.influence;
+      state.reputation = snapshot.reputation;
+      state.bestFilmScore = snapshot.bestFilmScore;
+      state.totalEarnedFunding = snapshot.totalEarnedFunding;
+      state.legendaryFound = snapshot.legendaryFound;
+      state.ownedItems = [...snapshot.ownedItems];
+      state.activeItems = clonePlain(snapshot.activeItems);
+      state.itemPurchaseCounts = clonePlain(snapshot.itemPurchaseCounts);
+      state.dailyPurchasedItems = new Set(snapshot.dailyPurchasedItems);
+      state.itemInventory = clonePlain(snapshot.itemInventory);
+      state.recycleUsedUnlocked = snapshot.recycleUsedUnlocked;
+      state.upgrades = clonePlain(snapshot.upgrades);
+      state.usedKeywordTexts = new Set(snapshot.usedKeywordTexts);
+      state.usedKeywordsByCategory = clonePlain(snapshot.usedKeywordsByCategory);
+      state.bestFilmTitle = snapshot.bestFilmTitle;
+      state.dailyOpportunity = clonePlain(snapshot.dailyOpportunity);
+    }
+
+    function clearCurrentDayTemporaryState() {
+      state.selectedCard = null;
+      state.availableCards = [];
+      state.currentKeywords = [];
+      state.scratchStepIndex = 0;
+      state.currentCategoryDeck = [];
+      state.selectedDeckIndex = null;
+      state.selectedKeywordCandidate = null;
+      state.currentScratchLocked = false;
+      state.lastConfirmMessage = "";
+      state.deckNote = "";
+      state.currentDeckAllowsUsed = false;
+      state.currentFilm = null;
+      state.currentScores = null;
+      state.currentRewards = null;
+    }
+
+    function restartCurrentDay() {
+      if (!state.dayStartSnapshot) {
+        resetGame(false);
+        generateDailyOpportunity();
+        saveDayStartSnapshot();
+      } else {
+        restoreDayStartSnapshot();
+      }
+      clearCurrentDayTemporaryState();
+      state.screen = "daily";
+      state.resumeScreen = "daily";
+      closeAbandonModal();
+      render();
+      toast("已回到今天开始前。");
+    }
+
+    function returnToMainMenu() {
+      closeAbandonModal();
+      goHome();
+      toast("已返回主菜单，当前进度已保留。");
+    }
+
+    function fullResetToMainMenu() {
+      resetGame(false);
+      state.screen = "start";
+      closeAbandonModal();
+      render();
+      toast("已回到主菜单。");
+    }
+
     function openGuide(tab = "inspiration", focusId = null) {
       guideState.tab = tab;
       guideState.focusId = focusId;
@@ -2067,7 +2228,7 @@
 
     function renderGuide() {
       const tabs = [
-        ["inspiration", "灵感卡"],
+        ["inspiration", "创作方向"],
         ["items", "道具"],
         ["scoring", "评分"],
         ["discovered", "已发现关键词"]
@@ -2075,12 +2236,11 @@
       document.getElementById("guideBody").innerHTML = `
         <button class="guide-close" onclick="closeGuide()" aria-label="关闭 AI 创作手册">×</button>
         <h2>AI 创作手册</h2>
-        <p class="muted">这里记录灵感卡、道具、评分规则和本局已经发现的关键词。主流程保持快速，细节都放在这本导演手册里。</p>
+        <p class="muted">这里记录创作方向、道具、评分规则和本局已经发现的关键词。主流程保持快速，细节都放在这本导演手册里。</p>
         <div class="guide-tabs">
           ${tabs.map(([id, label]) => `<button class="guide-tab ${guideState.tab === id ? "active" : ""}" onclick="setGuideTab('${id}')">${label}</button>`).join("")}
         </div>
         <div class="guide-content">${renderGuideContent()}</div>
-        ${hasActiveRun() ? `<div class="actions" style="justify-content:flex-end"><button class="btn secondary" onclick="closeGuide(); goHome()">返回标题页（可继续）</button></div>` : ""}
       `;
       setupTermTooltips();
     }
@@ -2095,14 +2255,19 @@
     function renderGuideInspiration() {
       return `
         <section class="guide-section">
+          <div class="guide-entry">
+            <h3>${term("创作方向", "creativeDirection")}</h3>
+            <p>创作方向原本对应不同的灵感卡。它们会影响${term("稀有度概率", "rarityShift")}和作品${term("属性倾向", "statTendency")}，适合在不同的今日创作机会下做取舍。</p>
+          </div>
           <div class="guide-grid">
             ${cardTypes.map(card => `
               <article class="guide-card ${guideState.focusId === card.id ? "focus" : ""}" style="--card-accent:${getCardAccent(card)}" id="guide-card-${card.id}">
-                <h3>${card.icon} ${card.name}</h3>
-                <span class="archetype">${getCardArchetype(card)}</span>
+                <h3>${card.icon} ${getCardRouteName(card)}</h3>
+                <span class="archetype">${getCardRouteSubtitle(card)}</span>
+                <p class="compact-card-note">${getOriginalCardName(card)}</p>
                 <p class="muted">${card.desc}</p>
                 <h4>策略角色</h4>
-                <p>${term(getCardArchetype(card), getCardTooltipKey(card, "Playstyle"))}</p>
+                <p>${term(getCardRouteSubtitle(card), getCardTooltipKey(card, "Playstyle"))}</p>
                 <h4>${term("稀有度概率", "rarityShift")}倾向</h4>
                 <div class="inspiration-effects">${renderProbabilityEffects(card)}</div>
                 <h4>${term("属性倾向", "statTendency")}</h4>
@@ -2215,6 +2380,7 @@
         final: renderFinalEnding
       };
       game.innerHTML = screens[state.screen]();
+      renderTopbarActions();
       if (state.screen === "scratch") {
         setTimeout(setupScratchCanvas, 40);
       }
@@ -2225,6 +2391,17 @@
         setTimeout(animateScores, 80);
       }
       setupTermTooltips();
+    }
+
+    function renderTopbarActions() {
+      const el = document.getElementById("topbarActions");
+      if (!el) return;
+      const menuLabel = state.screen === "final" ? "返回标题页" : "菜单";
+      el.innerHTML = `
+        <button class="btn secondary" onclick="openGuide()">AI 创作手册</button>
+        <button class="btn secondary" onclick="openDesignModal()">设计说明</button>
+        ${state.screen === "start" ? "" : `<button class="btn secondary" onclick="openAbandonModal()">${menuLabel}</button>`}
+      `;
     }
 
     function setupTermTooltips() {
@@ -2287,8 +2464,10 @@
             <p class="subtitle">从出租屋开始，用 AI 拍出你的第一支爆款短片</p>
             <p class="intro">你是一名刚毕业的大学生，带着 300 元创作资金来到新城市。你没有团队，没有资源，只有一叠 AI 灵感刮卡。5 天后，你能成为爆款 AI 导演吗？</p>
             <div class="actions">
-              ${hasActiveRun() ? `<button class="btn" onclick="continueProgress()">继续当前进度</button>` : ""}
-              <button class="btn ${hasActiveRun() ? "secondary" : ""}" onclick="startGame()">${hasActiveRun() ? "重新开始" : "开始创作"}</button>
+              ${hasActiveRun() ? `
+                <button class="btn" onclick="continueProgress()">继续当前进度</button>
+                <button class="btn danger" onclick="fullResetToMainMenu()">放弃本局并全部重置</button>
+              ` : `<button class="btn" onclick="startGame()">开始创作</button>`}
               <button class="btn secondary" onclick="openDesignModal()">查看设计说明</button>
             </div>
           </div>
@@ -2333,6 +2512,7 @@
     function startGame() {
       resetGame(false);
       generateDailyOpportunity();
+      saveDayStartSnapshot();
       state.screen = "daily";
       state.resumeScreen = "daily";
       render();
@@ -2393,11 +2573,11 @@
       return `
         <section class="screen layout">
           <div class="panel wide-card">
-            <h2 class="section-title">选择今天的 AI 灵感卡</h2>
+            <h2 class="section-title">选择今天的创作方向</h2>
             <div class="tag-row" style="margin-bottom:12px">
               <span class="badge">第 ${state.day} 天 / 共 ${MAX_DAYS} 天</span>
             </div>
-            <p class="section-sub">今天的机会会影响额外奖励。选择一张灵感卡，决定今天作品更偏向哪种创作路线。详细规则可以在 AI 创作手册中查看。</p>
+            <p class="section-sub">今天的${term("创作方向", "creativeDirection")}会影响你更容易刮到的关键词类型，也会改变作品最终的评分倾向。根据今日创作机会，选择一种更适合的路线。</p>
             ${renderDailyOpportunity(true)}
             <div class="strategy-note">
               <h3>为什么要做出取舍？</h3>
@@ -2406,12 +2586,13 @@
             <div class="grid three">
               ${state.availableCards.map(card => `
                 <article class="choice-card" style="--card-accent:${getCardAccent(card)}">
-                  <h3>${card.icon} ${card.name}</h3>
-                  <span class="archetype">${getCardArchetype(card)}</span>
-                  <p class="muted">${card.desc}</p>
+                  <h3>${card.icon} ${getCardRouteName(card)}</h3>
+                  <span class="archetype">${getCardRouteSubtitle(card)}</span>
+                  <p class="muted">${getCardRouteDescription(card)}</p>
+                  <p class="compact-card-note">${getOriginalCardName(card)}</p>
                   <p class="compact-card-note"><strong>今日匹配：</strong>${getCardRecommendationReason(card, state.dailyOpportunity)}</p>
                   <div class="actions">
-                    <button class="btn" onclick="selectCard('${card.id}')">选择这张</button>
+                    <button class="btn" onclick="selectCard('${card.id}')">选择这个方向</button>
                     <button class="btn secondary" onclick="openGuide('inspiration', '${card.id}')">查看详情</button>
                   </div>
                 </article>
@@ -2546,7 +2727,7 @@
                     <button class="btn secondary" onclick="revealCurrentKeyword()">直接揭晓本关键词</button>
                     ${state.currentScratchLocked ? "" : `<button class="btn secondary" onclick="clearDeckSelection()">放回牌桌重选</button>`}
                   ` : `<button class="btn secondary" disabled>先选择一张灵感卡</button>`}
-                  ${!complete ? `<button class="btn secondary" onclick="abandonCurrentCreation()">放弃本次创作</button>` : ""}
+                  ${!complete ? `<button class="btn secondary" onclick="openAbandonModal()">菜单 / 放弃本次创作</button>` : ""}
                 </div>
               </aside>
             </div>
@@ -3507,6 +3688,7 @@
       state.currentScores = null;
       state.currentRewards = null;
       generateDailyOpportunity();
+      saveDayStartSnapshot();
       state.screen = "daily";
       state.resumeScreen = "daily";
       render();
@@ -3663,6 +3845,9 @@
       state.currentRewards = null;
       state.bestFilmTitle = "还没开机的毕业作品";
       state.resumeScreen = "daily";
+      state.dayStartSnapshot = null;
+      guideState.tab = "inspiration";
+      guideState.focusId = null;
       if (shouldRender) render();
     }
 
